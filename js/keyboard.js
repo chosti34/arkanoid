@@ -1,4 +1,4 @@
-// Свойства keyCode для разных клавиш
+// Г‘ГўГ®Г©Г±ГІГўГ  keyCode Г¤Г«Гї Г°Г Г§Г­Г»Гµ ГЄГ«Г ГўГЁГё
 var keys = {
     'W' : 87,
     'S' : 83,
@@ -6,34 +6,34 @@ var keys = {
     'D' : 68
 }
 
-// Хранит код нажатой клавиши
+// Г•Г°Г Г­ГЁГІ ГЄГ®Г¤ Г­Г Г¦Г ГІГ®Г© ГЄГ«Г ГўГЁГёГЁ
 var keyDownCode = {};
 
-// Меняет значение объекта keyDownCode
+// ГЊГҐГ­ГїГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ Г®ГЎГєГҐГЄГІГ  keyDownCode
 var setKeyDownCode = function(keyCode)
 {
     keyDownCode[keyCode] = true;
 }
 
-// Очищает значение объекта keyDownCode
+// ГЋГ·ГЁГ№Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ Г®ГЎГєГҐГЄГІГ  keyDownCode
 var clearKeyDownCode = function(keyCode)
 {
     keyDownCode[keyCode] = false;
 }
 
-// Проверка на нажите клавиши
+// ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г­Г Г¦ГЁГІГҐ ГЄГ«Г ГўГЁГёГЁ
 var isKeyDown = function(keyName)
 {
     return keyDownCode[keys[keyName]] == true;
 }
 
-// Событие при нажатии клавиши
+// Г‘Г®ГЎГ»ГІГЁГҐ ГЇГ°ГЁ Г­Г Г¦Г ГІГЁГЁ ГЄГ«Г ГўГЁГёГЁ
 window.onkeydown = function(keyEvent)
 {
     setKeyDownCode(keyEvent.keyCode);
 };
 
-// Событие при отпускании клавиши
+// Г‘Г®ГЎГ»ГІГЁГҐ ГЇГ°ГЁ Г®ГІГЇГіГ±ГЄГ Г­ГЁГЁ ГЄГ«Г ГўГЁГёГЁ
 window.onkeyup = function(keyEvent)
 {
     clearKeyDownCode(keyEvent.keyCode);
