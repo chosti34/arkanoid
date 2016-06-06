@@ -1,4 +1,4 @@
-// Ñâîéñòâà keyCode äëÿ ðàçíûõ êëàâèø
+// Свойства keyCode для разных клавиш
 var keys = {
     'W' : 87,
     'S' : 83,
@@ -6,34 +6,34 @@ var keys = {
     'D' : 68
 }
 
-// Õðàíèò êîä íàæàòîé êëàâèøè
+// Хранит код нажатой клавиши
 var keyDownCode = {};
 
-// Ìåíÿåò çíà÷åíèå îáúåêòà keyDownCode
+// Меняет значение объекта keyDownCode
 var setKeyDownCode = function(keyCode)
 {
     keyDownCode[keyCode] = true;
 }
 
-// Î÷èùàåò çíà÷åíèå îáúåêòà keyDownCode
+// Очищает значение объекта keyDownCode
 var clearKeyDownCode = function(keyCode)
 {
     keyDownCode[keyCode] = false;
 }
 
-// Ïðîâåðêà íà íàæèòå êëàâèøè
+// Проверка на нажите клавиши
 var isKeyDown = function(keyName)
 {
     return keyDownCode[keys[keyName]] == true;
 }
 
-// Ñîáûòèå ïðè íàæàòèè êëàâèøè
+// Событие при нажатии клавиши
 window.onkeydown = function(keyEvent)
 {
     setKeyDownCode(keyEvent.keyCode);
 };
 
-// Ñîáûòèå ïðè îòïóñêàíèè êëàâèøè
+// Событие при отпускании клавиши
 window.onkeyup = function(keyEvent)
 {
     clearKeyDownCode(keyEvent.keyCode);
