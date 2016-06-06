@@ -13,7 +13,7 @@ var _renderer = (function()
 
 var _engine = function()
 {
-    console.log('Игровой движок не инициализирован');
+    console.log('РРіСЂРѕРІРѕР№ РґРІРёР¶РѕРє РЅРµ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ');
 }
 
 var startGame = function(game)
@@ -22,7 +22,7 @@ var startGame = function(game)
     {
         _engine = game;
     }
-    gameLoop(); // Запуск игрового цикла
+    gameLoop(); // Р—Р°РїСѓСЃРє РёРіСЂРѕРІРѕРіРѕ С†РёРєР»Р°
 }
 
 var setGame = function(game)
