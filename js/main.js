@@ -1,10 +1,11 @@
 var game = function()
 {
-    // Тест файлов engine.js и keyboard.js
-    if (isKeyDown('W'))
-    {
-        console.log('Нажата W');
-    }
+    fillAll('#add8e6');
+
+    grid.draw();
+
+    player.move();
+    player.draw();
 };
 
 startGame(game);

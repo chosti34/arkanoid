@@ -1,10 +1,10 @@
 var _renderer = (function()
 {
-    return requestAnimationFrame ||
-    webkitRequestAnimationFrame  ||
-    mozRequestAnimationFrame     ||
-    oRequestAnimationFrame       ||
-    msRequestAnimationFrame      ||
+    return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame  ||
+    window.mozRequestAnimationFrame     ||
+    window.oRequestAnimationFrame       ||
+    window.msRequestAnimationFrame      ||
     function(callback)
     {
         setTimeout(callback, 1000 / 60);
@@ -13,7 +13,7 @@ var _renderer = (function()
 
 var _engine = function()
 {
-    console.log('РРіСЂРѕРІРѕР№ РґРІРёР¶РѕРє РЅРµ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ');
+    console.log('Игровой движок не инициализирован');
 }
 
 var startGame = function(game)
@@ -22,7 +22,7 @@ var startGame = function(game)
     {
         _engine = game;
     }
-    gameLoop(); // Р—Р°РїСѓСЃРє РёРіСЂРѕРІРѕРіРѕ С†РёРєР»Р°
+    gameLoop(); // Запуск игрового цикла
 }
 
 var setGame = function(game)
