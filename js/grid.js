@@ -13,15 +13,14 @@ EnemyBlock.prototype.draw = function(ctx)
 };
 
 var grid = {
-
     nodes: [],
-
+    
     add: function(x, y, width, height, color)
     {
         var temp = new EnemyBlock(x, y, width, height, color);
         this.nodes.push(temp);
     },
-
+    
     generate: function(amount, width, height, color)
     {
         var blankDistance = 5;
@@ -57,7 +56,6 @@ var grid = {
             this.nodes[enemy].draw(ctx);
         }
     }
-
 };
 
 grid.generate(20, 60, 20, 'red');

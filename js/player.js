@@ -1,5 +1,4 @@
 var player = {
-
     x: 50,
     y: 440,
     width: 100,
@@ -19,6 +18,7 @@ var player = {
             var x = event.offsetX;
             player.x = x - player.width / 2;
         });
+
         if (isKeyDown('RIGHT'))
         {
             this.x += this.speed;
@@ -28,5 +28,4 @@ var player = {
             this.x -= this.speed;
         }
     }
-
 }
