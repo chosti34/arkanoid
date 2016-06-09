@@ -1,63 +1,63 @@
-var _Enemy = function(x, y, w, h, color)
+var EnemyBlock = function(x, y, width, height, color)
 {
     this.x = x;
     this.y = y;
-    this.width = w;
-    this.height = h;
+    this.width = width;
+    this.height = height;
     this.color = color;
-}
+};
 
-_Enemy.prototype.draw = function()
+EnemyBlock.prototype.draw = function(ctx)
 {
-    drawRect(this.x, this.y, this.width, this.height, this.color);
-}
+    drawRect(ctx, this.x, this.y, this.width, this.height, this.color);
+};
 
 var grid = {
+
     nodes: [],
 
-    add: function(x, y, w, h, color)
+    add: function(x, y, width, height, color)
     {
-        var temp = new _Enemy(x, y, w, h, color);
+        var temp = new EnemyBlock(x, y, width, height, color);
         this.nodes.push(temp);
     },
 
-    generate: function(count, w, h, color)
+    generate: function(amount, width, height, color)
     {
-        var dw = 5;
-        var dx = dw;
-        var xAxisNumber = Math.ceil(CANVAS_WIDTH / (w + dw)) - 1;
-        var yAxisNumber = Math.ceil(count / xAxisNumber);
-        var dWidth = Math.ceil((CANVAS_WIDTH - (w + dw) * xAxisNumber) / 2)
-        var dy = dWidth;
+        var blankDistance = 5;
 
-        for (var i = 0; i < yAxisNumber; i++)
+        var xAxisCoordinate = Math.ceil(CANVAS_WIDTH / (width + blankDistance)) - 1;
+        var yAxisCoordinate = Math.ceil(amount / xAxisCoordinate);
+
+        var edgeDistance = Math.ceil((CANVAS_WIDTH - (width + blankDistance) * xAxisCoordinate) / 2);
+
+        var differenceX = blankDistance;
+        var differenceY = edgeDistance;
+
+        for (var i = 0; i < yAxisCoordinate; i++)
         {
-            for (var j = 0; j < xAxisNumber; j++)
+            for (var j = 0; j < xAxisCoordinate; j++)
             {
                 if (j == 0)
                 {
-                    dx += Math.ceil(dWidth - dw / 2);
+                    differenceX += Math.ceil(edgeDistance - blankDistance / 2);
                 }
-                this.add(dx, dy, w, h, color);
-                dx += w + dw;
+                this.add(differenceX, differenceY, width, height, color);
+                differenceX += width + blankDistance;
             }
-            dy += h + dw;
-            dx = dw;
+            differenceX = blankDistance;
+            differenceY += height + blankDistance;
         }
     },
 
-    destroy: function(index)
+    draw: function(ctx)
     {
-        
-    },
-
-    draw: function()
-    {
-        for (enemy in this.nodes)
+        for (var enemy in this.nodes)
         {
-            this.nodes[enemy].draw();
+            this.nodes[enemy].draw(ctx);
         }
     }
+
 };
 
-grid.generate(100, 60, 20, 'red');
+grid.generate(20, 60, 20, 'red');

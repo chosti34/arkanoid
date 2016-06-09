@@ -1,11 +1,9 @@
 var game = function()
 {
-    fillAll('#add8e6');
-
-    grid.draw();
-
+    fillAll(ctx, '#add8e6');
+    grid.draw(ctx);
     player.move();
-    player.draw();
+    player.draw(ctx);
 };
 
-startGame(game);
+gameLoop(game);
