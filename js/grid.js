@@ -13,14 +13,15 @@ EnemyBlock.prototype.draw = function(ctx)
 };
 
 var grid = {
+
     nodes: [],
-    
+
     add: function(x, y, width, height, color)
     {
         var temp = new EnemyBlock(x, y, width, height, color);
         this.nodes.push(temp);
     },
-    
+
     generate: function(amount, width, height, color)
     {
         var blankDistance = 5;
@@ -49,13 +50,17 @@ var grid = {
         }
     },
 
+    destroy: function(identifier)
+    {
+        this.nodes.splice(identifier, 1);
+    },
+
     draw: function(ctx)
     {
-        for (var enemy in this.nodes)
+        for (enemy in this.nodes)
         {
             this.nodes[enemy].draw(ctx);
         }
     }
-};
 
-grid.generate(20, 60, 20, 'red');
+};
