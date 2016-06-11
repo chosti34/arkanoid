@@ -1,20 +1,36 @@
-grid.generate(20, 60, 20, 'red');
-ball.init(player.x + Math.ceil(player.width / 2), player.y - 10, 10, 'black');
-
-var game = function()
+function updateGameField()
 {
     fillAll(ctx, '#add8e6');
-
     grid.draw(ctx);
+}
 
-    ball.collision();
+function changeObjectCoordinates()
+{
+    collision();
     ball.move();
+    player.moveControl();
+}
+
+function redrawObjects()
+{
     ball.draw();
-
-    player.move();
     player.draw(ctx);
+}
 
+function game()
+{
+    updateGameField();
+    changeObjectCoordinates();
+    redrawObjects()
     window.requestAnimationFrame(game);
 };
 
 game();
+
+function changeCoordinatesOnMouseMove(event)
+{
+    var x = event.offsetX;
+    player.x = x - player.width / 2;
+}
+
+document.getElementById('mouseVisibilityField').addEventListener('mousemove', changeCoordinatesOnMouseMove);
