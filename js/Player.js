@@ -1,10 +1,11 @@
-function Player(x, y, width, height, color)
+function Player(x, y, width, height, fillColor, strokeColor)
 {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.color = color;
+    this.fillColor = fillColor;
+    this.strokeColor = strokeColor;
 }
 
 Player.prototype.init = function(x, y, width, height)
@@ -17,7 +18,12 @@ Player.prototype.init = function(x, y, width, height)
 
 Player.prototype.draw = function(ctx)
 {
-    drawRect(ctx, this.x, this.y, this.width, this.height, this.color);
+    drawRect(ctx, this.x, this.y, this.width, this.height, this.fillColor);
+    ctx.strokeStyle = this.strokeColor;
+    ctx.beginPath();
+    ctx.rect(this.x, this.y, this.width, this.height)
+    ctx.closePath();
+    ctx.stroke();
 }
 
 Player.prototype.moveControl = function()

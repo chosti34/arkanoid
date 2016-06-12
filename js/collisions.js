@@ -5,33 +5,47 @@ function isCollision(x1, y1, w1, h1, x2, y2, w2, h2)
 
 function collision()
 {
-    squareLeft = ball.x - ball.radius;
-    squareTop = ball.y - ball.radius;
-    squareLength = 2 * ball.radius;
+    ballTop = g_ball.y - g_ball.radius;
+    ballRight = g_ball.x + g_ball.radius;
+    ballLeft = g_ball.x - g_ball.radius;
+    ballBottom = g_ball.y + g_ball.radius;
+    ballDiametr = 2 * g_ball.radius;
 
-    for (var identifier in grid.nodes)
+    // Столкновение с кирпичиками
+    for (var identifier in g_grid.nodes)
     {
-        var enemy = grid.nodes[identifier];
-
-        if (isCollision(squareLeft, squareTop, squareLength, squareLength, enemy.x, enemy.y, enemy.width, enemy.height))
+        var enemy = g_grid.nodes[identifier];
+        if (isCollision(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, enemy.width, enemy.height))
         {
-            ball.yVect *= - 1;
-            grid.destroy(identifier);
-        }
-
-        if (isCollision(squareLeft, squareTop, squareLength, squareLength, player.x, player.y, player.width, player.height))
-        {
-             ball.yVect = - 1;
-        }
-
-        if (ball.x + ball.radius >= CANVAS_WIDTH)
-        {
-            ball.xVect = - 1;
-        }
-
-        if (ball.x - ball.radius <= 0)
-        {
-            ball.xVect = 1;
+            g_ball.yVect = - g_ball.yVect;
+            g_grid.destroy(identifier);
         }
     }
-}
+    if (g_grid.nodes.length == 0)
+    {
+        g_gameContinue = false;
+    }
+
+    // Столкновение с боковой стенкой игрового поля
+    if ((ballRight >= CANVAS_WIDTH) || (ballLeft <= 0))
+    {
+        g_ball.xVect = - g_ball.xVect;
+    }
+
+    // Столкновение с верхней стенкой игрового поля
+    if (ballTop <= 0)
+    {
+        g_ball.yVect = - g_ball.yVect;
+    }
+
+    // Столкновение с платформой
+    if (isCollision(ballLeft, ballTop, ballDiametr, ballDiametr, g_player.x, g_player.y, g_player.width, g_player.height))
+    {
+        g_ball.yVect = - g_ball.yVect;
+        g_ball.xVect = 10 * (g_ball.x - (g_player.x + g_player.width / 2)) / g_player.width;
+    }
+    else if (ballBottom >= CANVAS_HEIGHT)
+    {
+        g_gameContinue = false;
+    }
+};
