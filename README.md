@@ -1,2 +1,0 @@
-# arkanoid
-repository for arkanoid
