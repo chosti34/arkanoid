@@ -5,11 +5,11 @@ function collision(x1, y1, w1, h1, x2, y2, w2, h2)
 
 function checkCollisions()
 {
-    ballTop = g_ball.y - g_ball.radius;
-    ballRight = g_ball.x + g_ball.radius;
-    ballLeft = g_ball.x - g_ball.radius;
-    ballBottom = g_ball.y + g_ball.radius;
-    ballDiametr = 2 * g_ball.radius;
+    var ballTop = g_ball.y - g_ball.radius;
+    var ballRight = g_ball.x + g_ball.radius;
+    var ballLeft = g_ball.x - g_ball.radius;
+    var ballBottom = g_ball.y + g_ball.radius;
+    var ballDiametr = 2 * g_ball.radius;
 
     // Столкновение с кирпичиками
     for (var identifier in g_grid.nodes)

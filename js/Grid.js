@@ -1,13 +1,13 @@
 function Grid()
 {
     this.nodes = [];
-};
+}
 
 Grid.prototype.add = function(x, y, width, height, color)
 {
     var temp = new Brick(x, y, width, height, color);
     this.nodes.push(temp);
-};
+}
 
 Grid.prototype.generate = function(amount, width, height, color)
 {
@@ -32,12 +32,12 @@ Grid.prototype.generate = function(amount, width, height, color)
         differenceX = blankDistance;
         differenceY += height + blankDistance;
     }
-};
+}
 
 Grid.prototype.destroy = function(identifier)
 {
     this.nodes.splice(identifier, 1);
-};
+}
 
 Grid.prototype.draw = function(ctx)
 {
@@ -45,4 +45,4 @@ Grid.prototype.draw = function(ctx)
     {
         this.nodes[enemy].draw(ctx);
     }
-};
+}
