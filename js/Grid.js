@@ -9,7 +9,7 @@ Grid.prototype.add = function(x, y, width, height, color)
     this.nodes.push(temp);
 }
 
-Grid.prototype.generate = function(amount, width, height, color)
+Grid.prototype.initialize = function(amount, width, height, color)
 {
     var blankDistance = 5;
     var xAxisCoordinate = Math.ceil(CANVAS_WIDTH / (width + blankDistance)) - 1;
@@ -37,12 +37,4 @@ Grid.prototype.generate = function(amount, width, height, color)
 Grid.prototype.destroy = function(identifier)
 {
     this.nodes.splice(identifier, 1);
-}
-
-Grid.prototype.draw = function(ctx)
-{
-    for (var enemy in this.nodes)
-    {
-        this.nodes[enemy].draw(ctx);
-    }
 }
