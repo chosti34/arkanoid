@@ -1,9 +1,9 @@
-function isCollision(x1, y1, w1, h1, x2, y2, w2, h2)
+function collision(x1, y1, w1, h1, x2, y2, w2, h2)
 {
     return (x1 < x2 + w2) && (x1 + w1 > x2) && (y1 < y2 + h2) && (h1 + y1 > y2);
 };
 
-function collision()
+function checkCollisions()
 {
     ballTop = g_ball.y - g_ball.radius;
     ballRight = g_ball.x + g_ball.radius;
@@ -15,10 +15,11 @@ function collision()
     for (var identifier in g_grid.nodes)
     {
         var enemy = g_grid.nodes[identifier];
-        if (isCollision(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, enemy.width, enemy.height))
+        if (collision(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, enemy.width, enemy.height))
         {
             g_ball.yVect = - g_ball.yVect;
             g_grid.destroy(identifier);
+            g_score++;
         }
     }
     if (g_grid.nodes.length == 0)
@@ -39,10 +40,10 @@ function collision()
     }
 
     // Столкновение с платформой
-    if (isCollision(ballLeft, ballTop, ballDiametr, ballDiametr, g_player.x, g_player.y, g_player.width, g_player.height))
+    if (collision(ballLeft, ballTop, ballDiametr, ballDiametr, g_platform.x, g_platform.y, g_platform.width, g_platform.height))
     {
         g_ball.yVect = - g_ball.yVect;
-        g_ball.xVect = 10 * (g_ball.x - (g_player.x + g_player.width / 2)) / g_player.width;
+        g_ball.xVect = 10 * (g_ball.x - (g_platform.x + g_platform.width / 2)) / g_platform.width;
     }
     else if (ballBottom >= CANVAS_HEIGHT)
     {
