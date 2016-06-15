@@ -1,6 +1,7 @@
 var g_ctx, g_ball, g_platform, g_grid, g_gameContinue, CANVAS_WIDTH, CANVAS_HEIGHT;
 var g_image = new Image();
 var g_score = 0;
+var graphics;
 
 window.onload = initialize;
 
@@ -15,6 +16,7 @@ function initialize()
     g_platform = new Platform();
     g_ball = new Ball();
     g_grid = new Grid();
+    graphics = new Graphics(g_ctx);
 
     g_platform.initialize(50, CANVAS_HEIGHT - 30, '#1e90ff', 'red');
     g_ball.initialize(g_platform.x + Math.ceil(g_platform.width / 2), g_platform.y - 10, 'blue', '#1e90ff');
@@ -28,23 +30,23 @@ function gameLoop()
 {
     if (g_gameContinue)
     {
-        clearAll(g_ctx);
-        drawBackground(g_ctx);
-        showScore(g_ctx);
+        // Очистка игрового поля
+        graphics.drawBackground();
+        graphics.showScore();
         // Задание координат
         checkCollisions();
         g_ball.move();
         g_platform.checkScopes();
         // Отрисовка
-        drawGrid(g_ctx);
-        drawBall(g_ctx);
-        drawPlatform(g_ctx);
+        graphics.drawGrid();
+        graphics.drawBall();
+        graphics.drawPlatform();
         // Игровой цикл
         window.requestAnimationFrame(gameLoop);
     }
     else
     {
-        showGameOver(g_ctx);
+        graphics.showGameOver();
     }
 };
 
