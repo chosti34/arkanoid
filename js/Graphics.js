@@ -6,12 +6,12 @@ function Graphics(ctx)
 Graphics.prototype.fillAll = function(color)
 {
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    this.ctx.fillRect(0, 0, game.fieldWidth, game.fieldHeight);
 }
 
 Graphics.prototype.clearAll = function()
 {
-    this.ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    this.ctx.clearRect(0, 0, game.fieldWidth, game.fieldHeight);
 }
 
 Graphics.prototype.drawRect = function(x, y, width, height, color)
@@ -44,26 +44,26 @@ Graphics.prototype.drawRectWithBorder = function(x, y, width, height, fillColor,
 
 Graphics.prototype.drawPlatform = function()
 {
-    this.drawRectWithBorder(g_platform.x, g_platform.y, g_platform.width, g_platform.height, g_platform.fillColor, g_platform.strokeColor);
+    this.drawRectWithBorder(game.platform.x, game.platform.y, game.platform.width, game.platform.height, game.platform.fillColor, game.platform.strokeColor);
 }
 
 Graphics.prototype.drawBall = function()
 {
-    this.drawCircleWithBorder(g_ball.x, g_ball.y, g_ball.radius, g_ball.fillColor, g_ball.strokeColor);
+    this.drawCircleWithBorder(game.ball.x, game.ball.y, game.ball.radius, game.ball.fillColor, game.ball.strokeColor);
 }
 
 Graphics.prototype.drawGrid = function()
 {
-    for (var enemy in g_grid.nodes)
+    for (var enemy in game.grid.nodes)
     {
-        this.drawRect(g_grid.nodes[enemy].x, g_grid.nodes[enemy].y, g_grid.nodes[enemy].width, g_grid.nodes[enemy].height, g_grid.nodes[enemy].color);
+        this.drawRect(game.grid.nodes[enemy].x, game.grid.nodes[enemy].y, game.grid.nodes[enemy].width, game.grid.nodes[enemy].height, game.grid.nodes[enemy].color);
     }
 }
 
 Graphics.prototype.showGameOver = function()
 {
     var stringToShow1 = 'Game Over';
-    var stringToShow2 = 'Score: ' + g_score;
+    var stringToShow2 = 'Score: ' + game.score;
 
     this.clearAll();
     this.drawBackground();
@@ -74,20 +74,19 @@ Graphics.prototype.showGameOver = function()
     var stringLength1 = this.ctx.measureText(stringToShow1).width;
     var stringLength2 = this.ctx.measureText(stringToShow2).width;
 
-    this.ctx.fillText(stringToShow1, CANVAS_WIDTH / 2 - stringLength1 / 2 + 20, CANVAS_HEIGHT / 2);
-    this.ctx.fillText(stringToShow2, CANVAS_WIDTH / 2 - stringLength2 / 2 + 20, CANVAS_HEIGHT / 2 + 50);
+    this.ctx.fillText(stringToShow1, game.fieldWidth / 2 - stringLength1 / 2 + 20, game.fieldHeight / 2);
+    this.ctx.fillText(stringToShow2, game.fieldWidth / 2 - stringLength2 / 2 + 20, game.fieldHeight / 2 + 50);
 }
 
 Graphics.prototype.drawBackground = function()
 {
-    g_image.src = 'img/background.jpg';
-    this.ctx.drawImage(g_image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    this.ctx.drawImage(game.image, 0, 0, game.fieldWidth, game.fieldHeight);
 }
 
 Graphics.prototype.showScore = function()
 {
-    var stringOfScore = 'Score: ' + g_score;
+    var stringOfScore = 'Score: ' + game.score;
     this.ctx.fillStyle = '#5d3954';
     this.ctx.font = '30px Arial';
-    this.ctx.fillText(stringOfScore, CANVAS_WIDTH - 160, CANVAS_HEIGHT / 2);
+    this.ctx.fillText(stringOfScore, game.fieldWidth - 160, game.fieldHeight / 2);
 }

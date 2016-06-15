@@ -12,9 +12,9 @@ Grid.prototype.add = function(x, y, width, height, color)
 Grid.prototype.initialize = function(amount, width, height, color)
 {
     var blankDistance = 5;
-    var xAxisCoordinate = Math.ceil(CANVAS_WIDTH / (width + blankDistance)) - 1;
+    var xAxisCoordinate = Math.ceil(game.fieldWidth / (width + blankDistance)) - 1;
     var yAxisCoordinate = Math.ceil(amount / xAxisCoordinate);
-    var edgeDistance = Math.ceil((CANVAS_WIDTH - (width + blankDistance) * xAxisCoordinate) / 2);
+    var edgeDistance = Math.ceil((game.fieldWidth - (width + blankDistance) * xAxisCoordinate) / 2);
     var differenceX = blankDistance;
     var differenceY = edgeDistance;
 
