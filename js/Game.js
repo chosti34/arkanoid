@@ -13,14 +13,16 @@ function Game()
     this.grid = new Grid();
 
     this.image = new Image();
-    this.сontinue = true;
-    this.score = 0;
+    this.image.src = 'img/background.jpg';
 }
 
 Game.prototype.initialize = function()
 {
-    game.image.src = 'img/background.jpg';
-    game.platform.initialize(50, game.fieldHeight - 30, '#1e90ff', 'red');
+    this.сontinue = true;
+    this.score = 0;
+    document.getElementById('startButton').style.display = 'none';
+
+    game.platform.initialize(game.fieldWidth / 2 - 50, game.fieldHeight - 30, '#1e90ff', 'red');
     game.ball.initialize(game.platform.x + Math.ceil(game.platform.width / 2), game.platform.y - 10, 'blue', '#1e90ff');
     game.grid.initialize(60, 60, 20, '#1ca9c9');
 
@@ -48,7 +50,7 @@ Game.prototype.loop = function()
     }
     else
     {
-        game.graphics.showGameOver();
+        game.over();
     }
 }
 
@@ -114,4 +116,13 @@ Game.prototype.checkBallCollision = function()
     {
         game.сontinue = false;
     }
+}
+
+Game.prototype.over = function()
+{
+    game.grid.nodes = [];
+    game.graphics.showGameOver();
+    document.getElementById('startButton').style.display = 'block';
+    document.getElementById('startButton').style.top += '100px';
+    document.getElementById('startButton').style.left += '30px';
 }

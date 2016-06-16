@@ -1,3 +1,6 @@
-var game = new Game();
+var game;
 
-window.onload = game.initialize;
+window.onload = function()
+{
+    game = new Game();
+};

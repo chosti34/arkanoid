@@ -74,8 +74,8 @@ Graphics.prototype.showGameOver = function()
     var stringLength1 = this.ctx.measureText(stringToShow1).width;
     var stringLength2 = this.ctx.measureText(stringToShow2).width;
 
-    this.ctx.fillText(stringToShow1, game.fieldWidth / 2 - stringLength1 / 2 + 20, game.fieldHeight / 2);
-    this.ctx.fillText(stringToShow2, game.fieldWidth / 2 - stringLength2 / 2 + 20, game.fieldHeight / 2 + 50);
+    this.ctx.fillText(stringToShow1, game.fieldWidth / 2 - stringLength1 / 2 + 20, game.fieldHeight / 2 - 50);
+    this.ctx.fillText(stringToShow2, game.fieldWidth / 2 - stringLength2 / 2 + 20, game.fieldHeight / 2);
 }
 
 Graphics.prototype.drawBackground = function()
