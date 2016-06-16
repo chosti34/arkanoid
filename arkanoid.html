@@ -6,9 +6,17 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <input type="button" value="Start Game" id="startButton" class="start_button" onclick="game.initialize()" />
     <div id="mouseVisibilityField" class="mouse_visibility_field">
+      <div class="information_about_player">
+        <div id="playerNickBlock" class="player_nick">
+          Player: <span id="spanForNick">Nickname</span>
+        </div>
+        <div id="playerScoreBlock" class="player_score">
+          Score: <span id="spanForScore"></span>
+        </div>
+      </div>
       <canvas id="canvas" class="canvas" width="800" height="600"></canvas>
+      <input type="button" value="Start Game" id="startButton" class="start_button" onclick="game.initialize();" />
     </div>
     <script type="text/javascript" src="js/Brick.js"></script>
     <script type="text/javascript" src="js/Ball.js"></script>

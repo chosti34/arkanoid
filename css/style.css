@@ -8,13 +8,7 @@ html, body
 
 .canvas
 {
-    margin: auto;
     display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     border: 1px solid grey;
 }
 
@@ -27,18 +21,24 @@ html, body
 
 .start_button
 {
-    z-index: 100;
-    border: 1px solid silver;
-    background: #1e90ff;
     width: 130px;
     height: 40px;
+    background: #1e90ff;
     font-size: 20px;
-    margin: 0 auto;
-    margin: auto;
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    top: -340px;
+    left: 345px;
+}
+
+.information_about_player
+{
+    width: 800px;
+    margin: 50px auto;
+    font-family: Times New Roman;
+    font-size: 20px;
+}
+
+.player_nick, .player_score
+{
+    opacity: 0;
 }

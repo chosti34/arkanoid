@@ -13,19 +13,27 @@ function Game()
     this.grid = new Grid();
 
     this.image = new Image();
-    this.image.src = 'img/background.jpg';
 }
 
 Game.prototype.initialize = function()
 {
+    // Инициализация переменных определяющих состояние игры
+    this.isWin = false;
     this.сontinue = true;
     this.score = 0;
-    document.getElementById('startButton').style.display = 'none';
 
+    // Обработка вспомогательных элементов на странице
+    document.getElementById('startButton').style.display = 'none';
+    document.getElementById('playerScoreBlock').style.opacity = '1';
+    document.getElementById('playerNickBlock').style.opacity = '1';
+    game.image.src = 'img/background_1.jpg';
+
+    // Инициализация необходимых для игры объектов
     game.platform.initialize(game.fieldWidth / 2 - 50, game.fieldHeight - 30, '#1e90ff', 'red');
     game.ball.initialize(game.platform.x + Math.ceil(game.platform.width / 2), game.platform.y - 10, 'blue', '#1e90ff');
     game.grid.initialize(60, 60, 20, '#1ca9c9');
 
+    // Запуск игрового цикла
     game.loop();
 }
 
@@ -50,7 +58,8 @@ Game.prototype.loop = function()
     }
     else
     {
-        game.over();
+        // Конец игры
+        game.end(game.isWin);
     }
 }
 
@@ -63,6 +72,22 @@ Game.prototype.changeCoordinatesOnMouseMove = function(event)
 Game.prototype.movePlatform = function()
 {
     document.getElementById('mouseVisibilityField').addEventListener('mousemove', game.changeCoordinatesOnMouseMove);
+}
+
+Game.prototype.end = function(isWin)
+{
+    // Очистка массива "вражеских" кирпичиков
+    game.grid.nodes = [];
+
+    // Обработка вспомогательных элементов на странице
+    document.getElementById('startButton').value = 'New Game';
+    document.getElementById('startButton').style.display = 'block';
+    document.getElementById('startButton').style.top = '-275px';
+    document.getElementById('startButton').style.left = '355px';
+    document.getElementById('playerScoreBlock').style.opacity = '0';
+    document.getElementById('playerNickBlock').style.opacity = '0';
+
+    game.graphics.showGameEnd(isWin);
 }
 
 Game.prototype.checkCollisionOfTwoObjects = function(x1, y1, w1, h1, x2, y2, w2, h2)
@@ -92,6 +117,7 @@ Game.prototype.checkBallCollision = function()
     if (game.grid.nodes.length == 0)
     {
         game.сontinue = false;
+        game.isWin = true;
     }
 
     // Столкновение с боковой стенкой игрового поля
@@ -116,13 +142,4 @@ Game.prototype.checkBallCollision = function()
     {
         game.сontinue = false;
     }
-}
-
-Game.prototype.over = function()
-{
-    game.grid.nodes = [];
-    game.graphics.showGameOver();
-    document.getElementById('startButton').style.display = 'block';
-    document.getElementById('startButton').style.top += '100px';
-    document.getElementById('startButton').style.left += '30px';
 }

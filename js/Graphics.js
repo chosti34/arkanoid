@@ -60,24 +60,6 @@ Graphics.prototype.drawGrid = function()
     }
 }
 
-Graphics.prototype.showGameOver = function()
-{
-    var stringToShow1 = 'Game Over';
-    var stringToShow2 = 'Score: ' + game.score;
-
-    this.clearAll();
-    this.drawBackground();
-
-    this.ctx.fillStyle = '#5d3954';
-    this.ctx.font = '42px Broadway';
-
-    var stringLength1 = this.ctx.measureText(stringToShow1).width;
-    var stringLength2 = this.ctx.measureText(stringToShow2).width;
-
-    this.ctx.fillText(stringToShow1, game.fieldWidth / 2 - stringLength1 / 2 + 20, game.fieldHeight / 2 - 50);
-    this.ctx.fillText(stringToShow2, game.fieldWidth / 2 - stringLength2 / 2 + 20, game.fieldHeight / 2);
-}
-
 Graphics.prototype.drawBackground = function()
 {
     this.ctx.drawImage(game.image, 0, 0, game.fieldWidth, game.fieldHeight);
@@ -85,8 +67,35 @@ Graphics.prototype.drawBackground = function()
 
 Graphics.prototype.showScore = function()
 {
-    var stringOfScore = 'Score: ' + game.score;
+    document.getElementById('spanForScore').innerHTML = game.score;
+}
+
+Graphics.prototype.showGameEnd = function(isWin)
+{
+    var stringToShow1, stringToShow2;
+    var stringLength1, stringLength2;
+
+    this.clearAll();
+    this.drawBackground();
+
     this.ctx.fillStyle = '#5d3954';
-    this.ctx.font = '30px Arial';
-    this.ctx.fillText(stringOfScore, game.fieldWidth - 160, game.fieldHeight / 2);
+    this.ctx.font = '42px Broadway';
+
+    if (isWin)
+    {
+        stringToShow1 = 'Congratulations!';
+        stringLength1 = this.ctx.measureText(stringToShow1).width;
+
+        this.ctx.fillText(stringToShow1, game.fieldWidth / 2 - stringLength1 / 2 + 20, game.fieldHeight / 2);
+    }
+    else
+    {
+        stringToShow1 = 'Game Over';
+        stringToShow2 = 'Score: ' + game.score;
+        stringLength1 = this.ctx.measureText(stringToShow1).width;
+        stringLength2 = this.ctx.measureText(stringToShow2).width;
+
+        this.ctx.fillText(stringToShow1, game.fieldWidth / 2 - stringLength1 / 2 + 20, game.fieldHeight / 2 - 50);
+        this.ctx.fillText(stringToShow2, game.fieldWidth / 2 - stringLength2 / 2 + 20, game.fieldHeight / 2);
+    }
 }
