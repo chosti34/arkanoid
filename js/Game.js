@@ -11,8 +11,6 @@ function Game()
     this.platform = new Platform();
     this.ball = new Ball();
     this.grid = new Grid();
-
-    this.image = new Image();
 }
 
 Game.prototype.initialize = function()
@@ -24,18 +22,17 @@ Game.prototype.initialize = function()
 
     // Обработка вспомогательных элементов на странице
     document.getElementById('startButton').style.display = 'none';
-    document.getElementById('playerScoreBlock').style.opacity = '1';
-    document.getElementById('playerNickBlock').style.opacity = '1';
-    game.image.src = 'img/background_1.jpg';
+    document.getElementById('changeNameButton').style.display = 'none';
+
 
     // Инициализация необходимых для игры объектов
-    game.platform.initialize(game.fieldWidth / 2 - 50, game.fieldHeight - 30, '#1e90ff', 'red');
+    game.platform.initialize(game.fieldWidth / 2 - 140, game.fieldHeight - 30, '#1e90ff', 'red');
     game.ball.initialize(game.platform.x + Math.ceil(game.platform.width / 2), game.platform.y - 10, 'blue', '#1e90ff');
     game.grid.initialize(60, 60, 20, '#1ca9c9');
 
     // Запуск игрового цикла
     game.loop();
-}
+};
 
 Game.prototype.loop = function()
 {
@@ -61,18 +58,18 @@ Game.prototype.loop = function()
         // Конец игры
         game.end(game.isWin);
     }
-}
+};
 
 Game.prototype.changeCoordinatesOnMouseMove = function(event)
 {
     var x = event.offsetX;
     game.platform.x = x - game.platform.width / 2;
-}
+};
 
 Game.prototype.movePlatform = function()
 {
     document.getElementById('mouseVisibilityField').addEventListener('mousemove', game.changeCoordinatesOnMouseMove);
-}
+};
 
 Game.prototype.end = function(isWin)
 {
@@ -80,20 +77,19 @@ Game.prototype.end = function(isWin)
     game.grid.nodes = [];
 
     // Обработка вспомогательных элементов на странице
-    document.getElementById('startButton').value = 'New Game';
+    document.getElementById('startButton').value = 'Play again';
     document.getElementById('startButton').style.display = 'block';
-    document.getElementById('startButton').style.top = '-275px';
-    document.getElementById('startButton').style.left = '355px';
-    document.getElementById('playerScoreBlock').style.opacity = '0';
-    document.getElementById('playerNickBlock').style.opacity = '0';
+    document.getElementById('startButton').style.top = '80px';
+    document.getElementById('startButton').style.right = '110px';
+    document.getElementById('changeNameButton').style.display = 'block';
 
     game.graphics.showGameEnd(isWin);
-}
+};
 
 Game.prototype.checkCollisionOfTwoObjects = function(x1, y1, w1, h1, x2, y2, w2, h2)
 {
     return (x1 < x2 + w2) && (x1 + w1 > x2) && (y1 < y2 + h2) && (h1 + y1 > y2);
-}
+};
 
 Game.prototype.checkBallCollision = function()
 {
@@ -142,4 +138,4 @@ Game.prototype.checkBallCollision = function()
     {
         game.сontinue = false;
     }
-}
+};

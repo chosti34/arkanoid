@@ -11,10 +11,10 @@ Ball.prototype.initialize = function(x, y, fillColor, strokeColor)
     this.y = y;
     this.fillColor = fillColor;
     this.strokeColor = strokeColor;
-}
+};
 
 Ball.prototype.move = function()
 {
     this.x += this.xVect;
     this.y += this.yVect;
-}
+};

@@ -10,7 +10,7 @@ Platform.prototype.initialize = function(x, y, fillColor, strokeColor)
     this.y = y;
     this.fillColor = fillColor;
     this.strokeColor = strokeColor;
-}
+};
 
 Platform.prototype.checkScopes = function()
 {
@@ -22,4 +22,4 @@ Platform.prototype.checkScopes = function()
     {
         this.x = 0;
     }
-}
+};
