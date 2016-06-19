@@ -4,6 +4,16 @@
     <meta charset="utf-8" />
     <title>Arkanoid</title>
     <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="mouseVisibilityField" class="mouse_visibility_field">
+      <div class="canvas_container">
+        <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
+        <input type="text" placeholder="Your name" id="areaForNick" class="area_for_nick" />
+        <input type="button" value="Play" id="startButton" class="start_button" />
+        <input type="button" value="Change name" id="changeNameButton" class="change_name_button" />
+      </div>
+    </div>
     <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" src="js/Brick.js"></script>
     <script type="text/javascript" src="js/Ball.js"></script>
@@ -12,15 +22,5 @@
     <script type="text/javascript" src="js/Graphics.js"></script>
     <script type="text/javascript" src="js/Game.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-  </head>
-  <body>
-    <div id="mouseVisibilityField" class="mouse_visibility_field">
-      <div class="canvas_container">
-        <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
-        <input type="text" placeholder="Your name" id="areaForNick" class="area_for_nick" />
-        <input type="button" value="Play" id="startButton" class="start_button" onclick="startGame();" />
-        <input type="button" value="Change name" id="changeNameButton" class="change_name_button" onclick="document.location.reload();" />
-      </div>
-    </div>
   </body>
 </html>

@@ -14,9 +14,9 @@ Platform.prototype.initialize = function(x, y, fillColor, strokeColor)
 
 Platform.prototype.checkScopes = function()
 {
-    if (this.x >= game.fieldWidth - this.width)
+    if (this.x >= g_game.fieldWidth - this.width)
     {
-        this.x = game.fieldWidth - this.width;
+        this.x = g_game.fieldWidth - this.width;
     }
     else if (this.x <= 0)
     {
