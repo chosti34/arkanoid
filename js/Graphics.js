@@ -72,7 +72,14 @@ Graphics.prototype.showScore = function()
     var stringOfScore = 'Score: ' + game.score;
     this.ctx.font = '24px Arial';
     this.ctx.fillStyle = '#5d3954';
-    this.ctx.fillText(stringOfScore, game.fieldWidth - 150, game.fieldHeight / 2);
+    this.ctx.fillText(stringOfScore, game.fieldWidth - 150, game.fieldHeight / 2 + 30);
+};
+
+Graphics.prototype.showPlayerName = function()
+{
+    this.ctx.font = '16px Arial';
+    this.ctx.fillStyle = '#5d3954';
+    this.ctx.fillText('Player: ' + player.value, game.fieldWidth - 150, game.fieldHeight / 2);
 };
 
 Graphics.prototype.showGameEnd = function(isWin)

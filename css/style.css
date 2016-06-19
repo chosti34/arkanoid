@@ -22,6 +22,21 @@
     margin: 0 auto;
 }
 
+.area_for_nick
+{
+    border: 1px solid grey;
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+    position: absolute;
+    top: -45px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+
 .start_button
 {
     width: 130px;
@@ -29,7 +44,7 @@
     background: #5d3954;
     font-size: 20px;
     position: absolute;
-    top: 0;
+    top: 70px;
     left: 0;
     right: 0;
     bottom: 0;

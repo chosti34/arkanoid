@@ -23,6 +23,7 @@ Game.prototype.initialize = function()
     // Обработка вспомогательных элементов на странице
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('changeNameButton').style.display = 'none';
+    document.getElementById('areaForNick').style.display = 'none';
 
 
     // Инициализация необходимых для игры объектов
@@ -41,6 +42,7 @@ Game.prototype.loop = function()
         // Отрисовка игрового поля
         game.graphics.drawBackground();
         game.graphics.showScore();
+        game.graphics.showPlayerName();
         // Задание координат
         game.checkBallCollision();
         game.ball.move();
@@ -73,6 +75,16 @@ Game.prototype.movePlatform = function()
 
 Game.prototype.end = function(isWin)
 {
+    
+    $.ajax({
+        type: "POST",
+        url: "../arkanoid/php/save.php",
+        data: ({
+            user: player.value,
+            score: game.score
+        })
+    });
+    
     // Очистка массива "вражеских" кирпичиков
     game.grid.nodes = [];
 
