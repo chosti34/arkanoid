@@ -1,6 +1,9 @@
-function Grid()
+function Grid(fieldWidth, fieldHeight)
 {
     this.nodes = [];
+
+    this.fieldWidth = fieldWidth;
+    this.fieldHeight = fieldHeight;
 }
 
 Grid.prototype.add = function(x, y, width, height, color)
@@ -12,9 +15,9 @@ Grid.prototype.add = function(x, y, width, height, color)
 Grid.prototype.initialize = function(amount, width, height, color)
 {
     var blankDistance = 5;
-    var xAxisCoordinate = Math.ceil(g_game.fieldWidth / (width + blankDistance)) - 1;
+    var xAxisCoordinate = Math.ceil(this.fieldWidth / (width + blankDistance)) - 1;
     var yAxisCoordinate = Math.ceil(amount / xAxisCoordinate);
-    var edgeDistance = Math.ceil((g_game.fieldWidth - (width + blankDistance) * xAxisCoordinate) / 2);
+    var edgeDistance = Math.ceil((this.fieldWidth - (width + blankDistance) * xAxisCoordinate) / 2);
     var differenceX = blankDistance;
     var differenceY = edgeDistance;
 

@@ -1,7 +1,10 @@
-function Platform()
+function Platform(fieldWidth, fieldHeight)
 {
     this.width = 140;
     this.height = 10;
+
+    this.fieldWidth = fieldWidth;
+    this.fieldHeight = fieldHeight;
 }
 
 Platform.prototype.initialize = function(x, y, fillColor, strokeColor)
@@ -12,11 +15,11 @@ Platform.prototype.initialize = function(x, y, fillColor, strokeColor)
     this.strokeColor = strokeColor;
 };
 
-Platform.prototype.checkScopes = function()
+Platform.prototype.controlBorderMove = function()
 {
-    if (this.x >= g_game.fieldWidth - this.width)
+    if (this.x >= this.fieldWidth - this.width)
     {
-        this.x = g_game.fieldWidth - this.width;
+        this.x = this.fieldWidth - this.width;
     }
     else if (this.x <= 0)
     {

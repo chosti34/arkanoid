@@ -3,6 +3,7 @@ function Graphics(ctx, fieldWidth, fieldHeight)
     this.ctx = ctx;
     this.fieldWidth = fieldWidth;
     this.fieldHeight = fieldHeight;
+
     this.image = new Image();
 }
 
@@ -45,46 +46,28 @@ Graphics.prototype.drawRectWithBorder = function(x, y, width, height, fillColor,
     this.ctx.stroke();
 };
 
-Graphics.prototype.drawPlatform = function()
-{
-    this.drawRectWithBorder(g_game.platform.x, g_game.platform.y, g_game.platform.width, g_game.platform.height, g_game.platform.fillColor, g_game.platform.strokeColor);
-};
-
-Graphics.prototype.drawBall = function()
-{
-    this.drawCircleWithBorder(g_game.ball.x, g_game.ball.y, g_game.ball.radius, g_game.ball.fillColor, g_game.ball.strokeColor);
-};
-
-Graphics.prototype.drawGrid = function()
-{
-    for (var enemy in g_game.grid.nodes)
-    {
-        this.drawRect(g_game.grid.nodes[enemy].x, g_game.grid.nodes[enemy].y, g_game.grid.nodes[enemy].width, g_game.grid.nodes[enemy].height, g_game.grid.nodes[enemy].color);
-    }
-};
-
 Graphics.prototype.drawBackground = function()
 {
     this.image.src = 'img/background.jpg';
     this.ctx.drawImage(this.image, 0, 0, this.fieldWidth, this.fieldHeight);
 };
 
-Graphics.prototype.showScore = function()
+Graphics.prototype.showScore = function(scoreVariable)
 {
-    var stringOfScore = 'Score: ' + g_game.score;
+    var stringOfScore = 'Score: ' + scoreVariable;
     this.ctx.font = '24px Arial';
     this.ctx.fillStyle = '#5d3954';
     this.ctx.fillText(stringOfScore, this.fieldWidth - 150, this.fieldHeight / 2 + 30);
 };
 
-Graphics.prototype.showPlayerName = function()
+Graphics.prototype.showPlayerName = function(name)
 {
     this.ctx.font = '16px Arial';
     this.ctx.fillStyle = '#5d3954';
-    this.ctx.fillText('Player: ' + g_player.value, this.fieldWidth - 150, this.fieldHeight / 2);
+    this.ctx.fillText('Player: ' + name, this.fieldWidth - 150, this.fieldHeight / 2);
 };
 
-Graphics.prototype.showGameEnd = function(isWin)
+Graphics.prototype.showGameEnd = function(isWin, scoreVariable)
 {
     var stringToShow1, stringToShow2;
     var stringLength1, stringLength2;
@@ -105,7 +88,7 @@ Graphics.prototype.showGameEnd = function(isWin)
     else
     {
         stringToShow1 = 'Game Over';
-        stringToShow2 = 'Score: ' + g_game.score;
+        stringToShow2 = 'Score: ' + scoreVariable;
         stringLength1 = this.ctx.measureText(stringToShow1).width;
         stringLength2 = this.ctx.measureText(stringToShow2).width;
 

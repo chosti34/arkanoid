@@ -1,16 +1,16 @@
 function Game()
 {
     var canvas = document.getElementById('canvas');
-    var ctx    = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d');
 
     this.fieldWidth  = canvas.width;
     this.fieldHeight = canvas.height;
 
     this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight);
 
-    this.platform = new Platform();
-    this.ball     = new Ball();
-    this.grid     = new Grid();
+    this.platform = new Platform(this.fieldWidth, this.fieldHeight);
+    this.ball = new Ball();
+    this.grid = new Grid(this.fieldWidth, this.fieldHeight);
 }
 
 Game.prototype.initialize = function()
@@ -33,15 +33,15 @@ Game.prototype.end = function(isWin)
     insertDataIntoDataBase();
     processElementsOnGameEnd();
     this.grid.nodes = [];
-    this.graphics.showGameEnd(isWin);
+    this.graphics.showGameEnd(isWin, this.score);
 };
 
-Game.prototype.checkCollisionOfTwoObjects = function(x1, y1, w1, h1, x2, y2, w2, h2)
+Game.prototype.isCollised = function(x1, y1, w1, h1, x2, y2, w2, h2)
 {
     return (x1 < x2 + w2) && (x1 + w1 > x2) && (y1 < y2 + h2) && (h1 + y1 > y2);
 };
 
-Game.prototype.checkBallCollision = function()
+Game.prototype.collisions = function()
 {
     var ballTop = this.ball.y - this.ball.radius;
     var ballRight = this.ball.x + this.ball.radius;
@@ -52,7 +52,7 @@ Game.prototype.checkBallCollision = function()
     for (var identifier in this.grid.nodes)
     {
         var enemy = this.grid.nodes[identifier];
-        if (this.checkCollisionOfTwoObjects(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, enemy.width, enemy.height))
+        if (this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, enemy.width, enemy.height))
         {
             this.ball.yVect = - this.ball.yVect;
             this.grid.destroy(identifier);
@@ -75,7 +75,7 @@ Game.prototype.checkBallCollision = function()
         this.ball.yVect = - this.ball.yVect;
     }
 
-    if (this.checkCollisionOfTwoObjects(ballLeft, ballTop, ballDiametr, ballDiametr, this.platform.x, this.platform.y, this.platform.width, this.platform.height))
+    if (this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, this.platform.x, this.platform.y, this.platform.width, this.platform.height))
     {
         this.ball.yVect = - this.ball.yVect;
         this.ball.xVect = 10 * (this.ball.x - (this.platform.x + this.platform.width / 2)) / this.platform.width;
@@ -83,5 +83,23 @@ Game.prototype.checkBallCollision = function()
     else if (ballBottom >= this.fieldHeight)
     {
         this.isContinue = false;
+    }
+};
+
+Game.prototype.drawPlatform = function()
+{
+    this.graphics.drawRectWithBorder(this.platform.x, this.platform.y, this.platform.width, this.platform.height, this.platform.fillColor, this.platform.strokeColor);
+};
+
+Game.prototype.drawBall = function()
+{
+    this.graphics.drawCircleWithBorder(this.ball.x, this.ball.y, this.ball.radius, this.ball.fillColor, this.ball.strokeColor);
+};
+
+Game.prototype.drawGrid = function()
+{
+    for (var enemy in this.grid.nodes)
+    {
+        this.graphics.drawRect(this.grid.nodes[enemy].x, this.grid.nodes[enemy].y, this.grid.nodes[enemy].width, this.grid.nodes[enemy].height, this.grid.nodes[enemy].color);
     }
 };

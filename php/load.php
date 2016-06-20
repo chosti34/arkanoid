@@ -7,9 +7,8 @@
     mysql_connect($server, $user, $password) or die(mysql_error());
     mysql_select_db($database) or die(mysql_error());
 
-    $name = trim(strip_tags($_POST['user']));
-    $score  = trim(strip_tags($_POST['score']));
-
-    $sql = "INSERT INTO players(name, score) VALUES('$name', $score)";
-
-    mysql_query($sql);
+    $q = mysql_query("SELECT * FROM players GROUP BY name ORDER BY score DESC LIMIT 5");
+    while ($res = mysql_fetch_assoc($q))
+    {
+        echo $res['name'] . ' ' . $res['score'] . '<br />';
+    }

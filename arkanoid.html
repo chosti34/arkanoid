@@ -11,7 +11,14 @@
         <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
         <input type="text" placeholder="Your name" id="areaForNick" class="area_for_nick" />
         <input type="button" value="Play" id="startButton" class="start_button" />
-        <input type="button" value="Change name" id="changeNameButton" class="change_name_button" />
+        <input type="button" value="Rename" id="changeNameButton" class="change_name_button" />
+        <input type="button" value="Show Top" id="showTopButton" class="show_top_button" />
+      </div>
+    </div>
+    <div class="popup" id="window-popup">
+      <div class="popup-content">
+        <p id="topPlayers"></p>
+        <a href="javascript:PopUpHide()">Return</a>
       </div>
     </div>
     <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
