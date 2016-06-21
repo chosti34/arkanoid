@@ -1,23 +1,34 @@
-var g_game, g_playerName;
+var g_arkanoid, g_player;
+
+var g_canvas = document.getElementById('canvas');
+var g_ctx = g_canvas.getContext('2d');
+
+var g_image = new Image();
+g_image.src = 'img/background.jpg';
 
 window.onload = function()
 {
-    g_game = new Game();
+    g_arkanoid = new Game(g_canvas, g_ctx, g_image);
+    g_arkanoid.graphics.drawBackground();
 
-    PopUpHide();
+    popUpHide();
+
     document.getElementById('startButton').onclick = startGame;
-    document.getElementById('changeNameButton').onclick = pageReload;
-    document.getElementById('showTopButton').onclick = PopUpShow;
+    document.getElementById('showTopButton').onclick = popUpShow;
+    document.getElementById('hideButtonBlock').onclick = popUpHide;
 
     getFromDataBase();
 };
 
 function startGame()
 {
-    g_playerName = document.getElementById('areaForNick').value;
-    if ((g_playerName != +g_playerName) && (g_playerName.length > 2))
+    g_player = document.getElementById('areaForNick').value;
+
+    if ((g_player != + g_player) && (g_player.length > 2))
     {
-        g_game.initialize();
+        g_arkanoid.initialize(g_player);
+        processElementsOnInitialize();
+        gameLoop();
     }
     else
     {
@@ -25,37 +36,73 @@ function startGame()
     }
 }
 
+function gameLoop()
+{
+    if (g_arkanoid.isContinue)
+    {
+        g_arkanoid.graphics.drawBackground();
+        g_arkanoid.showScore();
+        g_arkanoid.showName();
+
+        g_arkanoid.collisions();
+        g_arkanoid.ball.move();
+        g_arkanoid.platform.controlBorderMove();
+        handlerOnMouseMove();
+
+        g_arkanoid.drawGrid();
+        g_arkanoid.drawBall();
+        g_arkanoid.drawPlatform();
+
+        requestAnimationFrame(gameLoop);
+    }
+    else
+    {
+        insertIntoDataBase();
+        processElementsOnGameEnd();
+        g_arkanoid.end();
+        getFromDataBase();
+        /*if (getFromDataBase)
+        {
+            console.log('x');
+        }*/
+    }
+};
+
 function processElementsOnInitialize()
 {
     document.getElementById('startButton').style.display = 'none';
-    document.getElementById('changeNameButton').style.display = 'none';
     document.getElementById('areaForNick').style.display = 'none';
     document.getElementById('showTopButton').style.display = 'none';
 }
 
 function processElementsOnGameEnd()
 {
-    document.getElementById('startButton').value = 'Play Again';
-    document.getElementById('startButton').style.display = 'block';
-    document.getElementById('startButton').style.top = '80px';
-    document.getElementById('startButton').style.right = '110px';
-    document.getElementById('changeNameButton').style.display = 'block';
-    document.getElementById('showTopButton').style.display = 'block';
-    document.getElementById('showTopButton').style.left = '30px';
+    var start = document.getElementById('startButton');
+    var top = document.getElementById('showTopButton');
+    
+    start.value = 'RESTART';
+    start.style.display = 'block';
+    start.style.top = '250px';
+    start.style.right = '180px';
+    start.onclick = pageReload;
+
+    top.style.display = 'block';
+    top.style.top = '250px';
+    top.style.left = '270px';
 }
 
-function insertDataIntoDataBase()
+function insertIntoDataBase()
 {
     $.ajax
     ({
         type: 'POST',
-        url: '../arkanoid/php/save.php',
+        url: '../arkanoid/php/save_database.php',
         data:
         ({
-            user: g_playerName,
-            score: g_game.score
+            user: g_player,
+            score: g_arkanoid.score
         })
-    });
+    })
 }
 
 function getFromDataBase()
@@ -63,12 +110,12 @@ function getFromDataBase()
     $.ajax
     ({
         type: 'POST',
-        url: '../arkanoid/php/load.php',
+        url: '../arkanoid/php/load_database.php',
         success: function(html)
         {
-            $('#topPlayers').html(html);
+            $('#topPlayersParagraph').html(html);
         }
-    });
+    })
 }
 
 function pageReload()
@@ -76,48 +123,23 @@ function pageReload()
     document.location.reload();
 }
 
-function gameLoop()
-{
-    if (g_game.isContinue)
-    {
-        g_game.graphics.drawBackground();
-        g_game.graphics.showScore(g_game.score);
-        g_game.graphics.showPlayerName(g_playerName);
-
-        g_game.collisions();
-        g_game.ball.move();
-        g_game.platform.controlBorderMove();
-        movePlatform();
-
-        g_game.drawGrid();
-        g_game.drawBall();
-        g_game.drawPlatform();
-
-        window.requestAnimationFrame(gameLoop);
-    }
-    else
-    {
-        g_game.end(g_game.isWin);
-    }
-}
-
-function changeCoordinatesOnMouseMove(event)
-{
-    var x = event.offsetX;
-    g_game.platform.x = x - g_game.platform.width / 2;
-}
-
-function movePlatform()
+function handlerOnMouseMove()
 {
     document.getElementById('mouseVisibilityField').addEventListener('mousemove', changeCoordinatesOnMouseMove);
 }
 
-function PopUpShow()
+function changeCoordinatesOnMouseMove()
 {
-    $('#window-popup').show();
+    var x = event.offsetX;
+    g_arkanoid.platform.changeCoordinate(x);
 }
 
-function PopUpHide()
+function popUpShow()
 {
-    $('#window-popup').hide();
+    $('#windowPopup').show();
+}
+
+function popUpHide()
+{
+    $('#windowPopup').hide();
 }

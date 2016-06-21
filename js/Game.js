@@ -1,39 +1,33 @@
-function Game()
+function Game(canvas, ctx, image)
 {
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-
     this.fieldWidth  = canvas.width;
     this.fieldHeight = canvas.height;
 
-    this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight);
+    this.image = image;
+
+    this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight, this.image);
 
     this.platform = new Platform(this.fieldWidth, this.fieldHeight);
     this.ball = new Ball();
     this.grid = new Grid(this.fieldWidth, this.fieldHeight);
 }
 
-Game.prototype.initialize = function()
+Game.prototype.initialize = function(name)
 {
     this.isWin = false;
     this.isContinue = true;
     this.score = 0;
-
-    processElementsOnInitialize();
+    this.name = name;
 
     this.platform.initialize(this.fieldWidth / 2 - 140, this.fieldHeight - 30, '#1e90ff', 'red');
     this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 10, 'blue', '#1e90ff');
-    this.grid.initialize(60, 60, 20, '#1ca9c9');
-
-    gameLoop();
+    this.grid.initialize(60, 70, 20, '#1ca9c9');
 };
 
-Game.prototype.end = function(isWin)
+Game.prototype.end = function()
 {
-    insertDataIntoDataBase();
-    processElementsOnGameEnd();
     this.grid.nodes = [];
-    this.graphics.showGameEnd(isWin, this.score);
+    this.showEnd();
 };
 
 Game.prototype.isCollised = function(x1, y1, w1, h1, x2, y2, w2, h2)
@@ -101,5 +95,53 @@ Game.prototype.drawGrid = function()
     for (var enemy in this.grid.nodes)
     {
         this.graphics.drawRect(this.grid.nodes[enemy].x, this.grid.nodes[enemy].y, this.grid.nodes[enemy].width, this.grid.nodes[enemy].height, this.grid.nodes[enemy].color);
+    }
+};
+
+Game.prototype.showScore = function()
+{
+    var stringToPrint = 'Score: ' + this.score;
+    var fontOfString = '30px Arial';
+    var fillStyleOfString = '#1e90ff';
+
+    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
+};
+
+Game.prototype.showName = function()
+{
+    var stringToPrint = 'Player: ' + this.name;
+    var fontOfString = '20px Arial';
+    var fillStyleOfString = '#1e90ff';
+
+    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
+};
+
+Game.prototype.showEnd = function()
+{
+    var fontOfString = '42px Broadway';
+    var fillStyleOfString = '#5d3958';
+
+    this.graphics.drawBackground();
+
+    if (this.isWin)
+    {
+        var stringToShow = 'Congratulations!';
+        var stringLength = this.graphics.getStringLength(stringToShow);
+
+        this.graphics.printString(stringToShow, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength - 20, this.fieldHeight / 2);
+    }
+    else
+    {
+        var stringToShow1 = 'Game Over!';
+        var stringToShow2 = 'Player: ' + this.name;
+        var stringToShow3 = 'Score: ' + this.score;
+
+        var stringLength1 = this.graphics.getStringLength(stringToShow1);
+        var stringLength2 = this.graphics.getStringLength(stringToShow2);
+        var stringLength3 = this.graphics.getStringLength(stringToShow3);
+
+        this.graphics.printString(stringToShow1, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength1, this.fieldHeight / 2 - 50);
+        this.graphics.printString(stringToShow2, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength2 - 10, this.fieldHeight / 2);
+        this.graphics.printString(stringToShow3, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength3, this.fieldHeight / 2 + 50);
     }
 };

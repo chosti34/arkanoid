@@ -26,3 +26,8 @@ Platform.prototype.controlBorderMove = function()
         this.x = 0;
     }
 };
+
+Platform.prototype.changeCoordinate = function(coordinateFromMouse)
+{
+    this.x = coordinateFromMouse - this.width / 2;
+};

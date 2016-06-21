@@ -4,24 +4,23 @@
     <meta charset="utf-8" />
     <title>Arkanoid</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="libs/jquery-3.0.0.min.js"></script>
   </head>
   <body>
     <div id="mouseVisibilityField" class="mouse_visibility_field">
       <div class="canvas_container">
-        <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
-        <input type="text" placeholder="Your name" id="areaForNick" class="area_for_nick" />
-        <input type="button" value="Play" id="startButton" class="start_button" />
-        <input type="button" value="Rename" id="changeNameButton" class="change_name_button" />
-        <input type="button" value="Show Top" id="showTopButton" class="show_top_button" />
+        <canvas id="canvas" class="canvas" width="800" height="500"></canvas>
+        <input id="areaForNick" class="area_for_nick" type="text" placeholder="YOUR NAME" />
+        <input id="startButton" class="start_button main_buttons" type="button" value="PLAY" />
+        <input id="showTopButton" class="show_top_button main_buttons" type="button" value="WATCH TOP" />
       </div>
     </div>
-    <div class="popup" id="window-popup">
-      <div class="popup-content">
-        <p id="topPlayers"></p>
-        <a href="javascript:PopUpHide()">Return</a>
+    <div class="popup" id="windowPopup">
+      <div class="popup_content">
+        <p id="topPlayersParagraph"></p>
+        <div id="hideButtonBlock" class="hide_button_block">Return</div>
       </div>
     </div>
-    <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" src="js/Brick.js"></script>
     <script type="text/javascript" src="js/Ball.js"></script>
     <script type="text/javascript" src="js/Platform.js"></script>
