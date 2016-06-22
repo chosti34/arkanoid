@@ -3,13 +3,9 @@ var g_arkanoid, g_player;
 var g_canvas = document.getElementById('canvas');
 var g_ctx = g_canvas.getContext('2d');
 
-var g_image = new Image();
-g_image.src = 'img/background.jpg';
-
 window.onload = function()
 {
-    g_arkanoid = new Game(g_canvas, g_ctx, g_image);
-    g_arkanoid.graphics.drawBackground();
+    g_arkanoid = new Game(g_canvas, g_ctx);
 
     popUpHide();
 
@@ -22,13 +18,12 @@ window.onload = function()
 
 function startGame()
 {
-    g_player = document.getElementById('areaForNick').value;
+    g_player = document.getElementById('areaForName').value;
 
     if (g_player.length > 0)
     {
         g_arkanoid.initialize(g_player);
         processElementsOnInitialize();
-        g_arkanoid.loop();
     }
     else
     {
@@ -39,7 +34,7 @@ function startGame()
 function processElementsOnInitialize()
 {
     document.getElementById('startButton').style.display = 'none';
-    document.getElementById('areaForNick').style.display = 'none';
+    document.getElementById('areaForName').style.display = 'none';
     document.getElementById('showTopButton').style.display = 'none';
 }
 

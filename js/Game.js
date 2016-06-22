@@ -1,11 +1,9 @@
-function Game(canvas, ctx, image)
+function Game(canvas, ctx)
 {
     this.fieldWidth  = canvas.width;
     this.fieldHeight = canvas.height;
 
-    this.image = image;
-
-    this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight, this.image);
+    this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight);
 
     this.platform = new Platform(this.fieldWidth, this.fieldHeight);
     this.ball = new Ball();
@@ -22,6 +20,8 @@ Game.prototype.initialize = function(name)
     this.platform.initialize(this.fieldWidth / 2 - 140, this.fieldHeight - 30, '#1e90ff', 'red');
     this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 10, 'blue', '#1e90ff');
     this.grid.initialize(60, 70, 20, '#1ca9c9');
+
+    this.loop();
 };
 
 Game.prototype.loop = function()
@@ -30,7 +30,7 @@ Game.prototype.loop = function()
 
     if (this.isContinue)
     {
-        this.graphics.drawBackground();
+        this.graphics.clearAll();
         this.showScore();
         this.showName();
 
@@ -151,9 +151,9 @@ Game.prototype.showName = function()
 Game.prototype.showEnd = function()
 {
     var fontOfString = '42px Broadway';
-    var fillStyleOfString = '#5d3958';
+    var fillStyleOfString = '#1e90ff';
 
-    this.graphics.drawBackground();
+    this.graphics.clearAll();
 
     if (this.isWin)
     {

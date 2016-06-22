@@ -1,9 +1,8 @@
-function Graphics(ctx, fieldWidth, fieldHeight, image)
+function Graphics(ctx, fieldWidth, fieldHeight)
 {
     this.ctx = ctx;
     this.fieldWidth = fieldWidth;
     this.fieldHeight = fieldHeight;
-    this.image = image;
 }
 
 Graphics.prototype.fillAll = function(color)
