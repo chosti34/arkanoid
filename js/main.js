@@ -24,49 +24,17 @@ function startGame()
 {
     g_player = document.getElementById('areaForNick').value;
 
-    if ((g_player != + g_player) && (g_player.length > 2))
+    if (g_player.length > 0)
     {
         g_arkanoid.initialize(g_player);
         processElementsOnInitialize();
-        gameLoop();
+        g_arkanoid.loop();
     }
     else
     {
         alert('Please, enter your name...');
     }
 }
-
-function gameLoop()
-{
-    if (g_arkanoid.isContinue)
-    {
-        g_arkanoid.graphics.drawBackground();
-        g_arkanoid.showScore();
-        g_arkanoid.showName();
-
-        g_arkanoid.collisions();
-        g_arkanoid.ball.move();
-        g_arkanoid.platform.controlBorderMove();
-        handlerOnMouseMove();
-
-        g_arkanoid.drawGrid();
-        g_arkanoid.drawBall();
-        g_arkanoid.drawPlatform();
-
-        requestAnimationFrame(gameLoop);
-    }
-    else
-    {
-        insertIntoDataBase();
-        processElementsOnGameEnd();
-        g_arkanoid.end();
-        getFromDataBase();
-        /*if (getFromDataBase)
-        {
-            console.log('x');
-        }*/
-    }
-};
 
 function processElementsOnInitialize()
 {
@@ -96,7 +64,7 @@ function insertIntoDataBase()
     $.ajax
     ({
         type: 'POST',
-        url: '../arkanoid/php/save_database.php',
+        url: 'php/insert.php',
         data:
         ({
             user: g_player,
@@ -110,7 +78,7 @@ function getFromDataBase()
     $.ajax
     ({
         type: 'POST',
-        url: '../arkanoid/php/load_database.php',
+        url: 'php/select.php',
         success: function(html)
         {
             $('#topPlayersParagraph').html(html);
@@ -121,17 +89,6 @@ function getFromDataBase()
 function pageReload()
 {
     document.location.reload();
-}
-
-function handlerOnMouseMove()
-{
-    document.getElementById('mouseVisibilityField').addEventListener('mousemove', changeCoordinatesOnMouseMove);
-}
-
-function changeCoordinatesOnMouseMove()
-{
-    var x = event.offsetX;
-    g_arkanoid.platform.changeCoordinate(x);
 }
 
 function popUpShow()
