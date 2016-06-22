@@ -8,6 +8,8 @@ function Game(canvas, ctx)
     this.platform = new Platform(this.fieldWidth, this.fieldHeight);
     this.ball = new Ball();
     this.grid = new Grid(this.fieldWidth, this.fieldHeight);
+
+    this.handlerOnMouseMove();
 }
 
 Game.prototype.initialize = function(name)
@@ -20,40 +22,6 @@ Game.prototype.initialize = function(name)
     this.platform.initialize(this.fieldWidth / 2 - 140, this.fieldHeight - 30, '#1e90ff', 'red');
     this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 10, 'blue', '#1e90ff');
     this.grid.initialize(60, 70, 20, '#1ca9c9');
-
-    this.loop();
-};
-
-Game.prototype.loop = function()
-{
-    var thisPtr = this;
-
-    if (this.isContinue)
-    {
-        this.graphics.clearAll();
-        this.showScore();
-        this.showName();
-
-        this.collisions();
-        this.ball.move();
-        this.platform.controlBorderMove();
-        this.handlerOnMouseMove();
-
-        this.drawGrid();
-        this.drawBall();
-        this.drawPlatform();
-
-        window.requestAnimationFrame(function() {
-            thisPtr.loop();
-        });
-    }
-    else
-    {
-        insertIntoDataBase();
-        processElementsOnGameEnd();
-        this.end();
-        getFromDataBase();
-    }
 };
 
 Game.prototype.end = function()
@@ -134,7 +102,7 @@ Game.prototype.showScore = function()
 {
     var stringToPrint = 'Score: ' + this.score;
     var fontOfString = '30px Arial';
-    var fillStyleOfString = '#1e90ff';
+    var fillStyleOfString = 'blue';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
 };
@@ -143,7 +111,7 @@ Game.prototype.showName = function()
 {
     var stringToPrint = 'Player: ' + this.name;
     var fontOfString = '20px Arial';
-    var fillStyleOfString = '#1e90ff';
+    var fillStyleOfString = 'blue';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
 };
@@ -151,7 +119,7 @@ Game.prototype.showName = function()
 Game.prototype.showEnd = function()
 {
     var fontOfString = '42px Broadway';
-    var fillStyleOfString = '#1e90ff';
+    var fillStyleOfString = 'orange';
 
     this.graphics.clearAll();
 
@@ -160,7 +128,7 @@ Game.prototype.showEnd = function()
         var stringToShow = 'Congratulations!';
         var stringLength = this.graphics.getStringLength(stringToShow);
 
-        this.graphics.printString(stringToShow, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength - 20, this.fieldHeight / 2);
+        this.graphics.printString(stringToShow, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength / 2, this.fieldHeight / 2);
     }
     else
     {
@@ -172,9 +140,9 @@ Game.prototype.showEnd = function()
         var stringLength2 = this.graphics.getStringLength(stringToShow2);
         var stringLength3 = this.graphics.getStringLength(stringToShow3);
 
-        this.graphics.printString(stringToShow1, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength1, this.fieldHeight / 2 - 50);
-        this.graphics.printString(stringToShow2, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength2 - 10, this.fieldHeight / 2);
-        this.graphics.printString(stringToShow3, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength3, this.fieldHeight / 2 + 50);
+        this.graphics.printString(stringToShow1, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength1 / 2 - 100, this.fieldHeight / 2 - 50);
+        this.graphics.printString(stringToShow2, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength2 / 2 - 100, this.fieldHeight / 2);
+        this.graphics.printString(stringToShow3, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength3 / 2 - 100, this.fieldHeight / 2 + 50);
     }
 };
 
