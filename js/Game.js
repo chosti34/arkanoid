@@ -19,15 +19,15 @@ Game.prototype.initialize = function(name)
     this.score = 0;
     this.name = name;
 
-    this.platform.initialize(this.fieldWidth / 2 - 140, this.fieldHeight - 30, '#1e90ff', 'red');
-    this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 10, 'blue', '#1e90ff');
-    this.grid.initialize(60, 70, 20, '#1ca9c9');
+    this.platform.initialize(this.fieldWidth / 2 - this.platform.width / 2, this.fieldHeight - 30, '#1e90ff', 'blue');
+    this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 5, 'blue', '#1e90ff');
+    this.grid.initialize(60, 70, 20, '#1ca9c9', 'blue');
 };
 
 Game.prototype.end = function()
 {
     this.grid.nodes = [];
-    this.showEnd();
+    this.graphics.clearAll();
 };
 
 Game.prototype.isCollised = function(x1, y1, w1, h1, x2, y2, w2, h2)
@@ -94,15 +94,15 @@ Game.prototype.drawGrid = function()
 {
     for (var enemy in this.grid.nodes)
     {
-        this.graphics.drawRect(this.grid.nodes[enemy].x, this.grid.nodes[enemy].y, this.grid.nodes[enemy].width, this.grid.nodes[enemy].height, this.grid.nodes[enemy].color);
+        this.graphics.drawRectWithBorder(this.grid.nodes[enemy].x, this.grid.nodes[enemy].y, this.grid.nodes[enemy].width, this.grid.nodes[enemy].height, this.grid.nodes[enemy].fillColor, this.grid.nodes[enemy].strokeColor);
     }
 };
 
 Game.prototype.showScore = function()
 {
     var stringToPrint = 'Score: ' + this.score;
-    var fontOfString = '30px Arial';
-    var fillStyleOfString = 'blue';
+    var fontOfString = '30px Broadway';
+    var fillStyleOfString = '#531a5f';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
 };
@@ -110,29 +110,33 @@ Game.prototype.showScore = function()
 Game.prototype.showName = function()
 {
     var stringToPrint = 'Player: ' + this.name;
-    var fontOfString = '20px Arial';
-    var fillStyleOfString = 'blue';
+    var fontOfString = '18px Broadway';
+    var fillStyleOfString = '#531a5f';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
 };
 
 Game.prototype.showEnd = function()
 {
-    var fontOfString = '42px Broadway';
-    var fillStyleOfString = 'orange';
+    var stringToPrint = this.name + ' has earned ' + this.score + ' points!';
+    var stringLength = this.graphics.getStringLength(stringToPrint);
+    var fontOfString = '30px Times New Roman';
+    var fillStyleOfString = '#fff';
 
     this.graphics.clearAll();
 
-    if (this.isWin)
+    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength / 2, this.fieldHeight / 2 - 110);
+    
+    /*if (this.isWin)
     {
         var stringToShow = 'Congratulations!';
         var stringLength = this.graphics.getStringLength(stringToShow);
 
-        this.graphics.printString(stringToShow, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength / 2, this.fieldHeight / 2);
-    }
+        this.graphics.printString(stringToShow, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength / 2, this.fieldHeight / 2);*/
+    /*}
     else
     {
-        var stringToShow1 = 'Game Over!';
+        /*var stringToShow1 = 'Game Over!';
         var stringToShow2 = 'Player: ' + this.name;
         var stringToShow3 = 'Score: ' + this.score;
 
@@ -142,8 +146,9 @@ Game.prototype.showEnd = function()
 
         this.graphics.printString(stringToShow1, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength1 / 2 - 100, this.fieldHeight / 2 - 50);
         this.graphics.printString(stringToShow2, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength2 / 2 - 100, this.fieldHeight / 2);
-        this.graphics.printString(stringToShow3, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength3 / 2 - 100, this.fieldHeight / 2 + 50);
-    }
+        this.graphics.printString(stringToShow3, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength3 / 2 - 100, this.fieldHeight / 2 + 50);*/
+        
+    //}
 };
 
 Game.prototype.handlerOnMouseMove = function()

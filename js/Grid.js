@@ -6,13 +6,13 @@ function Grid(fieldWidth, fieldHeight)
     this.fieldHeight = fieldHeight;
 }
 
-Grid.prototype.add = function(x, y, width, height, color)
+Grid.prototype.add = function(x, y, width, height, fillColor, strokeColor)
 {
-    var temp = new Brick(x, y, width, height, color);
+    var temp = new Brick(x, y, width, height, fillColor, strokeColor);
     this.nodes.push(temp);
 };
 
-Grid.prototype.initialize = function(amount, width, height, color)
+Grid.prototype.initialize = function(amount, width, height, fillColor, strokeColor)
 {
     var blankDistance = 5;
     var xAxisCoordinate = Math.ceil(this.fieldWidth / (width + blankDistance)) - 1;
@@ -29,7 +29,7 @@ Grid.prototype.initialize = function(amount, width, height, color)
             {
                 differenceX += Math.ceil(edgeDistance - blankDistance / 2);
             }
-            this.add(differenceX, differenceY, width, height, color);
+            this.add(differenceX, differenceY, width, height, fillColor, strokeColor);
             differenceX += width + blankDistance;
         }
         differenceX = blankDistance;

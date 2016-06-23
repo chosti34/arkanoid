@@ -15,18 +15,22 @@ body
     font-size: 14px;
 }
 
-.canvas_container
+.container_with_border
 {
-    border: 5px solid #84a4ff;
     position: relative;
     top: 48px;
+    -webkit-box-shadow: 0 0 25px #84a4ff;
+    border: 5px solid #84a4ff;
+}
+
+.canvas_container
+{
+    position: relative;
     font-family: verdana;
     text-align: center;
-    height: 495px;
     background: url('../img/background.jpg');
     background-size: cover;
-    overflow: hidden;
-    -webkit-box-shadow: 0 0 25px #84a4ff;
+    opacity: 0.5;
 }
 
 .mouse_visibility_field
@@ -42,6 +46,7 @@ body
     width: 200px;
     height: 40px;
     font-size: 20px;
+    font-family: sans-sefif;
     position: absolute;
     top: -120px;
     left: 0;
@@ -63,6 +68,7 @@ body
     bottom: 0;
     margin: auto;
     border: 0;
+    font-family: sans-sefif;
 }
 
 .main_buttons:hover
@@ -79,6 +85,12 @@ body
 .show_top_button
 {
     top: 170px;
+}
+
+.rename_button
+{
+    top: -120px;
+    display: none;
 }
 
 .popup

@@ -1,16 +1,20 @@
 function GameController()
 {
-    var canvas = document.getElementById('canvas');
+    this.canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
 
-    this.game = new Game(canvas, ctx);
+    this.game = new Game(this.canvas, ctx);
 
     this.areaForName = document.getElementById('areaForName');
     this.startButton = document.getElementById('startButton');
     this.showTopButton = document.getElementById('showTopButton');
+    this.renameButton = document.getElementById('renameButton');
     this.hideButton = document.getElementById('hideButtonBlock');
+    this.backgroundImage = document.getElementById('canvasContainer');
 
-    this.setHandlerOnStartClick();
+    this.setHandlerOnStartButton();
+    this.setHandlerOnRenameButton();
+
     this.showTopButton.onclick = this.popUpShow;
     this.hideButton.onclick = this.popUpHide;
 
@@ -70,23 +74,23 @@ GameController.prototype.hideElementsOnStart = function()
     this.areaForName.style.display = 'none';
     this.startButton.style.display = 'none';
     this.showTopButton.style.display = 'none';
+    this.renameButton.style.display = 'none';
+
+    this.backgroundImage.style.opacity = '1';
 };
 
 GameController.prototype.showElementsOnEnd = function()
 {
-    this.startButton.value = 'RESTART';
     this.startButton.style.display = 'block';
-    this.startButton.style.top = '250px';
-    this.startButton.style.right = '250px';
-
-    this.startButton.onclick = document.location.reload;
-
     this.showTopButton.style.display = 'block';
-    this.showTopButton.style.top = '250px';
-    this.showTopButton.style.left = '250px';
+    this.renameButton.style.display = 'block';
+
+    this.startButton.value = 'Play again';
+
+    this.backgroundImage.style.opacity = '0.5';
 };
 
-GameController.prototype.setHandlerOnStartClick = function()
+GameController.prototype.setHandlerOnStartButton = function()
 {
     var thisPtr = this;
     this.startButton.addEventListener('click', function() {
@@ -94,9 +98,14 @@ GameController.prototype.setHandlerOnStartClick = function()
     });
 };
 
-GameController.prototype.reloadPage = function()
+GameController.prototype.setHandlerOnRenameButton = function()
 {
-    location.reload();
+    var thisPtr = this;
+    this.renameButton.addEventListener('click', function() {
+        thisPtr.renameButton.style.display = 'none';
+        thisPtr.areaForName.style.display = 'block';
+        thisPtr.areaForName.value = '';
+    });
 };
 
 GameController.prototype.popUpShow = function()

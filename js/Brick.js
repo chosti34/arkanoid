@@ -1,8 +1,9 @@
-function Brick(x, y, width, height, color)
+function Brick(x, y, width, height, fillColor, strokeColor)
 {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.color = color;
+    this.fillColor = fillColor;
+    this.strokeColor = strokeColor;
 }
