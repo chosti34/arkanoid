@@ -11,6 +11,8 @@ function GameController()
     this.renameButton = document.getElementById('renameButton');
     this.hideButton = document.getElementById('hideButtonBlock');
     this.backgroundImage = document.getElementById('canvasContainer');
+    this.gameOverMessage = document.getElementById('gameOverMessage');
+    this.endScoreMessage = document.getElementById('endScoreMessage');
 
     this.setHandlerOnStartButton();
     this.setHandlerOnRenameButton();
@@ -26,19 +28,23 @@ GameController.prototype.start = function()
 {
     this.name = areaForName.value;
 
-    if (this.name.length > 0)
+    if (this.name.length > 0 && this.name.length <= 12)
     {
         this.game.initialize(this.name);
         this.hideElementsOnStart();
-        this.loop();
+        this.gameLoop();
     }
-    else
+    else if (this.name.length == 0)
     {
         alert('Please, enter your name...');
     }
+    else
+    {
+        alert('Please, write less characters...');
+    }
 };
 
-GameController.prototype.loop = function()
+GameController.prototype.gameLoop = function()
 {
     var thisPtr = this;
 
@@ -57,7 +63,7 @@ GameController.prototype.loop = function()
         this.game.drawPlatform();
 
         window.requestAnimationFrame(function() {
-            thisPtr.loop();
+            thisPtr.gameLoop();
         });
     }
     else
@@ -75,6 +81,8 @@ GameController.prototype.hideElementsOnStart = function()
     this.startButton.style.display = 'none';
     this.showTopButton.style.display = 'none';
     this.renameButton.style.display = 'none';
+    this.gameOverMessage.style.display = 'none';
+    this.endScoreMessage.style.display = 'none';
 
     this.backgroundImage.style.opacity = '1';
 };
@@ -88,6 +96,11 @@ GameController.prototype.showElementsOnEnd = function()
     this.startButton.value = 'Play again';
 
     this.backgroundImage.style.opacity = '0.5';
+
+    this.gameOverMessage.innerHTML = 'Game Over, ' + this.name + '!';
+    this.gameOverMessage.style.display = 'block';
+    this.endScoreMessage.innerHTML = 'Score: ' + this.game.score;
+    this.endScoreMessage.style.display = 'block';
 };
 
 GameController.prototype.setHandlerOnStartButton = function()
@@ -103,7 +116,12 @@ GameController.prototype.setHandlerOnRenameButton = function()
     var thisPtr = this;
     this.renameButton.addEventListener('click', function() {
         thisPtr.renameButton.style.display = 'none';
+        thisPtr.gameOverMessage.style.display = 'none';
+        thisPtr.endScoreMessage.style.display = 'none';
+
         thisPtr.areaForName.style.display = 'block';
+
+        thisPtr.startButton.value = 'Play';
         thisPtr.areaForName.value = '';
     });
 };

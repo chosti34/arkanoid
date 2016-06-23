@@ -101,19 +101,19 @@ Game.prototype.drawGrid = function()
 Game.prototype.showScore = function()
 {
     var stringToPrint = 'Score: ' + this.score;
-    var fontOfString = '30px Broadway';
-    var fillStyleOfString = '#531a5f';
+    var fontOfString = '42px Times New Roman';
+    var fillStyleOfString = '#531a0f';
 
-    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
+    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
 };
 
 Game.prototype.showName = function()
 {
     var stringToPrint = 'Player: ' + this.name;
-    var fontOfString = '18px Broadway';
-    var fillStyleOfString = '#531a5f';
+    var fontOfString = '30px Times New Roman';
+    var fillStyleOfString = '#531a0f';
 
-    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
+    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
 };
 
 Game.prototype.showEnd = function()

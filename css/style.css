@@ -93,6 +93,28 @@ body
     display: none;
 }
 
+.ending_messages
+{
+    position: absolute;
+    bottom: 0;
+    margin: 0 auto;
+    width: 500px;
+    font-size: 36px;
+    display: none;
+    padding-left: 50px;
+}
+
+.game_over_message
+{
+    top: 30px;
+
+}
+
+.end_score_message
+{
+    top: 78px;
+}
+
 .popup
 {
     width: 100%;
