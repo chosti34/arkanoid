@@ -116,41 +116,6 @@ Game.prototype.showName = function()
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
 };
 
-Game.prototype.showEnd = function()
-{
-    var stringToPrint = this.name + ' has earned ' + this.score + ' points!';
-    var stringLength = this.graphics.getStringLength(stringToPrint);
-    var fontOfString = '30px Times New Roman';
-    var fillStyleOfString = '#fff';
-
-    this.graphics.clearAll();
-
-    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength / 2, this.fieldHeight / 2 - 110);
-    
-    /*if (this.isWin)
-    {
-        var stringToShow = 'Congratulations!';
-        var stringLength = this.graphics.getStringLength(stringToShow);
-
-        this.graphics.printString(stringToShow, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength / 2, this.fieldHeight / 2);*/
-    /*}
-    else
-    {
-        /*var stringToShow1 = 'Game Over!';
-        var stringToShow2 = 'Player: ' + this.name;
-        var stringToShow3 = 'Score: ' + this.score;
-
-        var stringLength1 = this.graphics.getStringLength(stringToShow1);
-        var stringLength2 = this.graphics.getStringLength(stringToShow2);
-        var stringLength3 = this.graphics.getStringLength(stringToShow3);
-
-        this.graphics.printString(stringToShow1, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength1 / 2 - 100, this.fieldHeight / 2 - 50);
-        this.graphics.printString(stringToShow2, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength2 / 2 - 100, this.fieldHeight / 2);
-        this.graphics.printString(stringToShow3, fontOfString, fillStyleOfString, this.fieldWidth / 2 - stringLength3 / 2 - 100, this.fieldHeight / 2 + 50);*/
-        
-    //}
-};
-
 Game.prototype.handlerOnMouseMove = function()
 {
     var thisPtr = this;
