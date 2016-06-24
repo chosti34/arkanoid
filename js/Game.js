@@ -22,6 +22,37 @@ Game.prototype.initialize = function(name)
     this.platform.initialize(this.fieldWidth / 2 - this.platform.width / 2, this.fieldHeight - 30, '#1e90ff', 'blue');
     this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 5, 'blue', '#1e90ff');
     this.grid.initialize(60, 70, 20, '#1ca9c9', 'blue');
+
+    this.gameLoop();
+};
+
+Game.prototype.gameLoop = function()
+{
+    var thisPtr = this;
+
+    if (this.isContinue)
+    {
+        this.graphics.clearAll();
+        this.showScore();
+        this.showName();
+
+        this.collisions();
+        this.ball.move();
+        this.platform.controlBorderMove();
+
+        this.drawGrid();
+        this.drawBall();
+        this.drawPlatform();
+
+        window.requestAnimationFrame(function() {
+            thisPtr.gameLoop();
+        });
+    }
+    else
+    {
+        this.end();
+        this.handlerOnEnd();
+    }
 };
 
 Game.prototype.end = function()
@@ -119,7 +150,7 @@ Game.prototype.showName = function()
 Game.prototype.handlerOnMouseMove = function()
 {
     var thisPtr = this;
-    document.getElementById('mouseVisibilityField').addEventListener('mousemove', function() {
+    document.getElementById('mouseVisibilityField').addEventListener('mousemove', function(event) {
         var x = event.offsetX;
         thisPtr.platform.changeCoordinate(x);
     });

@@ -1,38 +1,29 @@
 function GameController()
 {
-    this.canvas = document.getElementById('canvas');
+    var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
 
-    this.game = new Game(this.canvas, ctx);
+    this.game = new Game(canvas, ctx);
+    this.pageElements = new PageElements();
 
-    this.areaForName = document.getElementById('areaForName');
-    this.startButton = document.getElementById('startButton');
-    this.showTopButton = document.getElementById('showTopButton');
-    this.renameButton = document.getElementById('renameButton');
-    this.hideButton = document.getElementById('hideButtonBlock');
-    this.backgroundImage = document.getElementById('canvasContainer');
-    this.gameOverMessage = document.getElementById('gameOverMessage');
-    this.endScoreMessage = document.getElementById('endScoreMessage');
+    this.handlerOnStartButton();
+    this.handlerOnRenameButton();
+    this.handlerOnTopPlayerButtons();
 
-    this.setHandlerOnStartButton();
-    this.setHandlerOnRenameButton();
+    this.processElementsOnload();
 
-    this.showTopButton.onclick = this.popUpShow;
-    this.hideButton.onclick = this.popUpHide;
-
-    this.popUpHide();
     this.getData();
 }
 
 GameController.prototype.start = function()
 {
-    this.name = areaForName.value;
+    this.name = this.pageElements.areaForName[0].value;
 
-    if (this.name.length > 0 && this.name.length <= 12)
+    if ((this.name.length > 0) && (this.name.length <= 12))
     {
         this.game.initialize(this.name);
-        this.hideElementsOnStart();
-        this.gameLoop();
+        this.processElementsOnStart();
+        this.handlerOnEnd();
     }
     else if (this.name.length == 0)
     {
@@ -44,103 +35,77 @@ GameController.prototype.start = function()
     }
 };
 
-GameController.prototype.gameLoop = function()
+GameController.prototype.processElementsOnload = function()
+{
+    this.pageElements.hideOnload();
+    this.pageElements.popUpHide();
+};
+
+GameController.prototype.processElementsOnStart = function()
+{
+    this.pageElements.hideAllOnStart();
+    this.pageElements.backgroundImage[0].style.opacity = '1';
+};
+
+GameController.prototype.processElementsOnEnd = function()
+{
+    this.pageElements.showAllOnEnd();
+    this.pageElements.showGameOver(this.name, this.game.score);
+    this.pageElements.backgroundImage[0].style.opacity = '0.5';
+};
+
+GameController.prototype.handlerOnEnd = function()
 {
     var thisPtr = this;
 
-    if (this.game.isContinue)
+    this.game.handlerOnEnd = function()
     {
-        this.game.graphics.clearAll();
-        this.game.showScore();
-        this.game.showName();
-
-        this.game.collisions();
-        this.game.ball.move();
-        this.game.platform.controlBorderMove();
-
-        this.game.drawGrid();
-        this.game.drawBall();
-        this.game.drawPlatform();
-
-        window.requestAnimationFrame(function() {
-            thisPtr.gameLoop();
-        });
-    }
-    else
-    {
-        this.game.end();
-        this.showElementsOnEnd();
-        this.insertData();
-        this.getData();
-    }
+        thisPtr.processElementsOnEnd();
+        thisPtr.insertData();
+        thisPtr.getData();
+    };
 };
 
-GameController.prototype.hideElementsOnStart = function()
-{
-    this.areaForName.style.display = 'none';
-    this.startButton.style.display = 'none';
-    this.showTopButton.style.display = 'none';
-    this.renameButton.style.display = 'none';
-    this.gameOverMessage.style.display = 'none';
-    this.endScoreMessage.style.display = 'none';
-
-    this.backgroundImage.style.opacity = '1';
-};
-
-GameController.prototype.showElementsOnEnd = function()
-{
-    this.startButton.style.display = 'block';
-    this.showTopButton.style.display = 'block';
-    this.renameButton.style.display = 'block';
-
-    this.startButton.value = 'Play again';
-
-    this.backgroundImage.style.opacity = '0.5';
-
-    this.gameOverMessage.innerHTML = 'Game Over, ' + this.name + '!';
-    this.gameOverMessage.style.display = 'block';
-    this.endScoreMessage.innerHTML = 'Score: ' + this.game.score;
-    this.endScoreMessage.style.display = 'block';
-};
-
-GameController.prototype.setHandlerOnStartButton = function()
+GameController.prototype.handlerOnStartButton = function()
 {
     var thisPtr = this;
-    this.startButton.addEventListener('click', function() {
-        thisPtr.startButton.onclick = thisPtr.start();
+
+    this.pageElements.startButton[0].addEventListener('click', function()
+    {
+        thisPtr.pageElements.startButton[0].onclick = thisPtr.start();
     });
 };
 
-GameController.prototype.setHandlerOnRenameButton = function()
+GameController.prototype.handlerOnRenameButton = function()
 {
     var thisPtr = this;
-    this.renameButton.addEventListener('click', function() {
-        thisPtr.renameButton.style.display = 'none';
-        thisPtr.gameOverMessage.style.display = 'none';
-        thisPtr.endScoreMessage.style.display = 'none';
 
-        thisPtr.areaForName.style.display = 'block';
-
-        thisPtr.startButton.value = 'Play';
-        thisPtr.areaForName.value = '';
+    this.pageElements.renameButton[0].addEventListener('click', function()
+    {
+        thisPtr.pageElements.processOnRename();
     });
 };
 
-GameController.prototype.popUpShow = function()
+GameController.prototype.handlerOnTopPlayerButtons = function()
 {
-    $('#windowPopup').show();
-};
+    var thisPtr = this;
 
-GameController.prototype.popUpHide = function()
-{
-    $('#windowPopup').hide();
+    this.pageElements.showTopButton[0].addEventListener('click', function()
+    {
+        thisPtr.pageElements.popUpShow();
+    });
+
+    this.pageElements.hideTopButton[0].addEventListener('click', function()
+    {
+        thisPtr.pageElements.popUpHide();
+    });
 };
 
 GameController.prototype.insertData = function()
 {
-    $.ajax ({
+    $.ajax({
         type: 'POST',
-        url: 'php/insert.php',
+        url: '/arkanoid/php/insert.php',
         data: ({
             user: this.name,
             score: this.game.score
@@ -150,9 +115,9 @@ GameController.prototype.insertData = function()
 
 GameController.prototype.getData = function()
 {
-    $.ajax ({
+    $.ajax({
         type: 'POST',
-        url: 'php/select.php',
+        url: '/arkanoid/php/select.php',
         success: function(html) {
             $('#topPlayersParagraph').html(html);
         }

@@ -90,7 +90,6 @@ body
 .rename_button
 {
     top: -120px;
-    display: none;
 }
 
 .ending_messages
@@ -100,7 +99,6 @@ body
     margin: 0 auto;
     width: 500px;
     font-size: 36px;
-    display: none;
     padding-left: 50px;
 }
 
