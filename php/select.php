@@ -2,6 +2,7 @@
     require_once 'include/database.inc.php';
 
     $query = "SELECT * FROM players GROUP BY name ORDER BY score DESC LIMIT 5";
+
     $result = mysqli_query($g_dbLink, $query);
 
     if ($result)

@@ -20,7 +20,7 @@ Game.prototype.initialize = function(name)
     this.name = name;
 
     this.platform.initialize(this.fieldWidth / 2 - this.platform.width / 2, this.fieldHeight - 30, '#1e90ff', 'blue');
-    this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 5, 'blue', '#1e90ff');
+    this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 5, '#00bfff', 'blue');
     this.grid.initialize(60, 70, 20, '#1ca9c9', 'blue');
 
     this.gameLoop();

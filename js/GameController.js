@@ -4,7 +4,7 @@ function GameController()
     var ctx = canvas.getContext('2d');
 
     this.game = new Game(canvas, ctx);
-    this.pageElements = new PageElements();
+    this.gameInterface = new GameInterface();
 
     this.handlerOnStartButton();
     this.handlerOnRenameButton();
@@ -17,7 +17,7 @@ function GameController()
 
 GameController.prototype.start = function()
 {
-    this.name = this.pageElements.areaForName[0].value;
+    this.name = this.gameInterface.areaForName[0].value;
 
     if ((this.name.length > 0) && (this.name.length <= 12))
     {
@@ -37,21 +37,21 @@ GameController.prototype.start = function()
 
 GameController.prototype.processElementsOnload = function()
 {
-    this.pageElements.hideOnload();
-    this.pageElements.popUpHide();
+    this.gameInterface.hideOnload();
+    this.gameInterface.popUpHide();
 };
 
 GameController.prototype.processElementsOnStart = function()
 {
-    this.pageElements.hideAllOnStart();
-    this.pageElements.backgroundImage[0].style.opacity = '1';
+    this.gameInterface.hideAllOnStart();
+    this.gameInterface.backgroundImage[0].style.opacity = '1';
 };
 
 GameController.prototype.processElementsOnEnd = function()
 {
-    this.pageElements.showAllOnEnd();
-    this.pageElements.showGameOver(this.name, this.game.score);
-    this.pageElements.backgroundImage[0].style.opacity = '0.5';
+    this.gameInterface.showAllOnEnd();
+    this.gameInterface.showGameOver(this.name, this.game.score);
+    this.gameInterface.backgroundImage[0].style.opacity = '0.5';
 };
 
 GameController.prototype.handlerOnEnd = function()
@@ -70,9 +70,9 @@ GameController.prototype.handlerOnStartButton = function()
 {
     var thisPtr = this;
 
-    this.pageElements.startButton[0].addEventListener('click', function()
+    this.gameInterface.startButton[0].addEventListener('click', function()
     {
-        thisPtr.pageElements.startButton[0].onclick = thisPtr.start();
+        thisPtr.gameInterface.startButton[0].onclick = thisPtr.start();
     });
 };
 
@@ -80,9 +80,9 @@ GameController.prototype.handlerOnRenameButton = function()
 {
     var thisPtr = this;
 
-    this.pageElements.renameButton[0].addEventListener('click', function()
+    this.gameInterface.renameButton[0].addEventListener('click', function()
     {
-        thisPtr.pageElements.processOnRename();
+        thisPtr.gameInterface.processOnRename();
     });
 };
 
@@ -90,14 +90,14 @@ GameController.prototype.handlerOnTopPlayerButtons = function()
 {
     var thisPtr = this;
 
-    this.pageElements.showTopButton[0].addEventListener('click', function()
+    this.gameInterface.showTopButton[0].addEventListener('click', function()
     {
-        thisPtr.pageElements.popUpShow();
+        thisPtr.gameInterface.popUpShow();
     });
 
-    this.pageElements.hideTopButton[0].addEventListener('click', function()
+    this.gameInterface.hideTopButton[0].addEventListener('click', function()
     {
-        thisPtr.pageElements.popUpHide();
+        thisPtr.gameInterface.popUpHide();
     });
 };
 
@@ -109,7 +109,7 @@ GameController.prototype.insertData = function()
         data: ({
             user: this.name,
             score: this.game.score
-        })
+        }),
     });
 };
 
