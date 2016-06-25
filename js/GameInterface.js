@@ -24,7 +24,7 @@ GameInterface.prototype.showAllOnEnd = function()
     this.renameButton.show();
     this.areaForName.hide();
 
-    this.startButton[0].value = 'Play again';
+    this.startButton.val('Play again');
 };
 
 GameInterface.prototype.processOnRename = function()
@@ -35,14 +35,14 @@ GameInterface.prototype.processOnRename = function()
 
     this.areaForName.show();
 
-    this.startButton[0].value = 'Play';
-    this.areaForName[0].value = '';
+    this.startButton.val('Play')
+    this.areaForName.val('');
 };
 
 GameInterface.prototype.showGameOver = function(name, score)
 {
-    this.gameOverMessage[0].innerHTML = 'Game Over, ' + name + '!';
-    this.endScoreMessage[0].innerHTML = 'Score: ' + score;
+    this.gameOverMessage.html('Game Over, ' + name + '!');
+    this.endScoreMessage.html('Score: ' + score);
     this.gameOverMessage.show();
     this.endScoreMessage.show();
 };

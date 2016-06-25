@@ -17,7 +17,7 @@ function GameController()
 
 GameController.prototype.start = function()
 {
-    this.name = this.gameInterface.areaForName[0].value;
+    this.name = this.gameInterface.areaForName.val();
 
     if ((this.name.length > 0) && (this.name.length <= 12))
     {
@@ -44,14 +44,14 @@ GameController.prototype.processElementsOnload = function()
 GameController.prototype.processElementsOnStart = function()
 {
     this.gameInterface.hideAllOnStart();
-    this.gameInterface.backgroundImage[0].style.opacity = '1';
+    this.gameInterface.backgroundImage.css('opacity', '1');
 };
 
 GameController.prototype.processElementsOnEnd = function()
 {
     this.gameInterface.showAllOnEnd();
     this.gameInterface.showGameOver(this.name, this.game.score);
-    this.gameInterface.backgroundImage[0].style.opacity = '0.5';
+    this.gameInterface.backgroundImage.css('opacity', '0.5');
 };
 
 GameController.prototype.handlerOnEnd = function()
@@ -63,6 +63,7 @@ GameController.prototype.handlerOnEnd = function()
         thisPtr.processElementsOnEnd();
         thisPtr.insertData();
         thisPtr.getData();
+        thisPtr.getData();
     };
 };
 
@@ -70,9 +71,9 @@ GameController.prototype.handlerOnStartButton = function()
 {
     var thisPtr = this;
 
-    this.gameInterface.startButton[0].addEventListener('click', function()
+    this.gameInterface.startButton.bind('click', function()
     {
-        thisPtr.gameInterface.startButton[0].onclick = thisPtr.start();
+        thisPtr.gameInterface.startButton.bind = thisPtr.start();
     });
 };
 
@@ -80,7 +81,7 @@ GameController.prototype.handlerOnRenameButton = function()
 {
     var thisPtr = this;
 
-    this.gameInterface.renameButton[0].addEventListener('click', function()
+    this.gameInterface.renameButton.bind('click', function()
     {
         thisPtr.gameInterface.processOnRename();
     });
@@ -90,12 +91,12 @@ GameController.prototype.handlerOnTopPlayerButtons = function()
 {
     var thisPtr = this;
 
-    this.gameInterface.showTopButton[0].addEventListener('click', function()
+    this.gameInterface.showTopButton.bind('click', function()
     {
         thisPtr.gameInterface.popUpShow();
     });
 
-    this.gameInterface.hideTopButton[0].addEventListener('click', function()
+    this.gameInterface.hideTopButton.bind('click', function()
     {
         thisPtr.gameInterface.popUpHide();
     });
@@ -103,23 +104,42 @@ GameController.prototype.handlerOnTopPlayerButtons = function()
 
 GameController.prototype.insertData = function()
 {
+    var sendingData = {
+        user: this.name,
+        score: this.game.score
+    };
+
+    var showError = function()
+    {
+        alert('An error occurred when sending data');
+    };
+
     $.ajax({
-        type: 'POST',
         url: '/arkanoid/php/insert.php',
-        data: ({
-            user: this.name,
-            score: this.game.score
-        }),
+        type: 'POST',
+        data: sendingData,
+        error: showError
     });
 };
 
 GameController.prototype.getData = function()
 {
+    var showError = function()
+    {
+        alert('An error occurred while receiving data');
+    };
+
+    var changeTopPlayersElement = function(data)
+    {
+        $('#topPlayersParagraph').html(data);
+    };
+
     $.ajax({
-        type: 'POST',
         url: '/arkanoid/php/select.php',
-        success: function(html) {
-            $('#topPlayersParagraph').html(html);
-        }
+        success: function(data)
+        {
+            changeTopPlayersElement(data);
+        },
+        error: showError
     });
 };

@@ -5,5 +5,4 @@
     $score = trim(strip_tags($_POST['score']));
 
     $query = "INSERT INTO players(name, score) VALUES('$name', $score)";
-
     mysqli_query($g_dbLink, $query);
