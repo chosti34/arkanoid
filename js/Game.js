@@ -79,7 +79,16 @@ Game.prototype.collisions = function()
         var enemy = this.grid.nodes[identifier];
         if (this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, enemy.width, enemy.height))
         {
-            this.ball.yVect = - this.ball.yVect;
+            if (this.ball.xVect >= 0 && this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, 0, enemy.height) ||
+                this.ball.xVect <= 0 && this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x + enemy.width, enemy.y, 0, enemy.height))
+            {
+                this.ball.xVect = - this.ball.xVect;
+                this.ball.yVect = - this.ball.yVect;
+            }
+            else
+            {
+                this.ball.yVect = - this.ball.yVect;
+            }
             this.grid.destroy(identifier);
             this.score++;
         }

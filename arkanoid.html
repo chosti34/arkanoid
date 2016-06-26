@@ -8,24 +8,25 @@
   </head>
   <body>
     <div id="mouseVisibilityField" class="mouse_visibility_field">
-      <div class="container_with_border">
+      <div class="main_container_with_border">
         <div id="canvasContainer" class="canvas_container">
           <canvas id="canvas" class="canvas" width="890" height="495"></canvas>
         </div>
-        <div id="pageElements">
+        <div id="pageElements" class="page_elements">
           <span id="gameOverMessage" class="game_over_message ending_messages"></span>
           <span id="endScoreMessage" class="end_score_message ending_messages"></span>
           <input id="areaForName" class="area_for_name" type="text" placeholder="Name" maxlength="12" />
           <input id="startButton" class="start_button main_buttons" type="button" value="Play" />
-          <input id="showTopButton" class="show_top_button main_buttons" type="button" value="Top 5" />
+          <input id="showTopButton" class="show_top_button main_buttons" type="button" value="Top" />
           <input id="renameButton" class="rename_button main_buttons" type="button" value="Change name" />
         </div>
       </div>
     </div>
     <div class="popup" id="windowPopup">
       <div class="popup_content">
-        <p id="topPlayersParagraph"></p>
-        <div id="hideButtonBlock" class="hide_button_block">Return</div>
+        <span class="header_popup">Top players</span>
+        <p id="topPlayersParagraph" class="top_players_paragraph"></p>
+        <a id="hideButtonBlock" class="hide_button">Return</a>
       </div>
     </div>
     <script type="text/javascript" src="js/Brick.js"></script>

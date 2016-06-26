@@ -35,8 +35,14 @@ Graphics.prototype.drawCircleWithBorder = function(x, y, radius, fillColor, stro
 
 Graphics.prototype.drawRectWithBorder = function(x, y, width, height, fillColor, strokeColor)
 {
-    this.ctx.fillStyle = fillColor;
+    var grad = this.ctx.createLinearGradient(x, y, x + 50, y + 200);
+
+    grad.addColorStop(0, fillColor);
+    grad.addColorStop(1, strokeColor);
+
+    this.ctx.fillStyle = grad;
     this.ctx.strokeStyle = strokeColor;
+
     this.ctx.beginPath();
     this.ctx.rect(x, y, width, height);
     this.ctx.closePath();
