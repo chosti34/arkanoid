@@ -9,6 +9,7 @@ function GameController()
     this.handlerOnStartButton();
     this.handlerOnRenameButton();
     this.handlerOnTopPlayerButtons();
+    this.handlerOnEnd();
 
     this.processElementsOnload();
 
@@ -17,15 +18,14 @@ function GameController()
 
 GameController.prototype.start = function()
 {
-    this.name = this.gameInterface.areaForName.val();
+    this.playerName = this.getPlayerName();
 
-    if ((this.name.length > 0) && (this.name.length <= 12))
+    if ((this.playerName.length > 0) && (this.playerName.length <= 12))
     {
-        this.game.initialize(this.name);
+        this.game.initialize(this.playerName);
         this.processElementsOnStart();
-        this.handlerOnEnd();
     }
-    else if (this.name.length == 0)
+    else if (this.playerName.length == 0)
     {
         alert('Please, enter your name...');
     }
@@ -50,7 +50,7 @@ GameController.prototype.processElementsOnStart = function()
 GameController.prototype.processElementsOnEnd = function()
 {
     this.gameInterface.showAllOnEnd();
-    this.gameInterface.showGameOver(this.name, this.game.score);
+    this.gameInterface.showGameOver(this.playerName, this.game.score);
     this.gameInterface.backgroundImage.css('opacity', '0.5');
 };
 
@@ -62,7 +62,6 @@ GameController.prototype.handlerOnEnd = function()
     {
         thisPtr.processElementsOnEnd();
         thisPtr.insertData();
-        thisPtr.getData();
         thisPtr.getData();
     };
 };
@@ -102,10 +101,15 @@ GameController.prototype.handlerOnTopPlayerButtons = function()
     });
 };
 
+GameController.prototype.getPlayerName = function()
+{
+    return this.gameInterface.areaForName.val();
+};
+
 GameController.prototype.insertData = function()
 {
     var sendingData = {
-        user: this.name,
+        user: this.playerName,
         score: this.game.score
     };
 
@@ -117,6 +121,7 @@ GameController.prototype.insertData = function()
     $.ajax({
         url: '/arkanoid/php/insert.php',
         type: 'POST',
+        cache: false,
         data: sendingData,
         error: showError
     });
@@ -136,10 +141,8 @@ GameController.prototype.getData = function()
 
     $.ajax({
         url: '/arkanoid/php/select.php',
-        success: function(data)
-        {
-            changeTopPlayersElement(data);
-        },
+        cache: false,
+        success: changeTopPlayersElement,
         error: showError
     });
 };

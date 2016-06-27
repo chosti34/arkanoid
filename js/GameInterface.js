@@ -3,7 +3,7 @@ function GameInterface()
     this.areaForName = $('#areaForName');
     this.startButton = $('#startButton');
     this.showTopButton = $('#showTopButton');
-    this.hideTopButton = $('#hideButtonBlock');
+    this.hideTopButton = $('#hideButton');
     this.renameButton = $('#renameButton');
     this.gameOverMessage = $('#gameOverMessage');
     this.endScoreMessage = $('#endScoreMessage');

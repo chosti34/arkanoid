@@ -1,6 +1,6 @@
 function Game(canvas, ctx)
 {
-    this.fieldWidth  = canvas.width;
+    this.fieldWidth = canvas.width;
     this.fieldHeight = canvas.height;
 
     this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight);
@@ -10,14 +10,15 @@ function Game(canvas, ctx)
     this.grid = new Grid(this.fieldWidth, this.fieldHeight);
 
     this.handlerOnMouseMove();
+    this.handlerOnEnd = function() {};
 }
 
-Game.prototype.initialize = function(name)
+Game.prototype.initialize = function(playerName)
 {
     this.isWin = false;
     this.isContinue = true;
     this.score = 0;
-    this.name = name;
+    this.playerName = playerName;
 
     this.platform.initialize(this.fieldWidth / 2 - this.platform.width / 2, this.fieldHeight - 30, '#1e90ff', 'blue');
     this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 5, '#00bfff', 'blue');
@@ -83,13 +84,13 @@ Game.prototype.collisions = function()
                 this.ball.xVect <= 0 && this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x + enemy.width, enemy.y, 0, enemy.height))
             {
                 this.ball.xVect = - this.ball.xVect;
-                this.ball.yVect = - this.ball.yVect;
             }
             else
             {
                 this.ball.yVect = - this.ball.yVect;
             }
             this.grid.destroy(identifier);
+            this.getBonuses(enemy);
             this.score++;
         }
     }
@@ -117,6 +118,25 @@ Game.prototype.collisions = function()
     else if (ballBottom >= this.fieldHeight)
     {
         this.isContinue = false;
+    }
+};
+
+Game.prototype.getBonuses = function(enemy)
+{
+    var thisPtr = this;
+
+    if (enemy.type == 1)
+    {
+        this.ball.yVect += 0.5;
+        this.platform.width += 5;
+    }
+    else if (enemy.type == 2)
+    {
+        this.platform.width += 5;;
+    }
+    else if (enemy.type == 3)
+    {
+        this.platform.width -= 20;
     }
 };
 
@@ -149,7 +169,7 @@ Game.prototype.showScore = function()
 
 Game.prototype.showName = function()
 {
-    var stringToPrint = 'Player: ' + this.name;
+    var stringToPrint = 'Player: ' + this.playerName;
     var fontOfString = '30px Times New Roman';
     var fillStyleOfString = '#531a0f';
 

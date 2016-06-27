@@ -50,19 +50,9 @@ Graphics.prototype.drawRectWithBorder = function(x, y, width, height, fillColor,
     this.ctx.stroke();
 };
 
-Graphics.prototype.drawBackground = function()
-{
-    this.ctx.drawImage(this.image, 0, 0, this.fieldWidth, this.fieldHeight);
-};
-
 Graphics.prototype.printString = function(str, font, fillStyleOfStr, x, y)
 {
     this.ctx.font = font;
     this.ctx.fillStyle = fillStyleOfStr;
     this.ctx.fillText(str, x, y);
-};
-
-Graphics.prototype.getStringLength = function(str)
-{
-    return this.ctx.measureText(str).width;
 };

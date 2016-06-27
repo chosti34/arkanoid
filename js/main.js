@@ -1,4 +1,4 @@
 window.onload = function()
 {
-    var controller = new GameController;
+    var controller = new GameController();
 };
