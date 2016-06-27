@@ -61,3 +61,8 @@ GameInterface.prototype.popUpHide = function()
 {
     this.topPlayersBlock.hide();
 };
+
+GameInterface.prototype.getPlayerName = function()
+{
+    return this.areaForName.val();
+};

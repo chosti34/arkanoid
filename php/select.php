@@ -1,8 +1,9 @@
 <?php
     require_once 'include/database.inc.php';
 
-    $mainQuery = "SELECT name, MAX(score) as max_score FROM players GROUP BY name ORDER BY max_score DESC LIMIT 12";
-    $result = mysqli_query($g_dbLink, $mainQuery);
+    $query = "SELECT name, MAX(score) as max_score FROM players GROUP BY name ORDER BY max_score DESC LIMIT 12";
+
+    $result = mysqli_query($g_dbLink, $query);
     $amountOfPlayers = mysqli_num_rows($result);
 
     if (($result) && ($amountOfPlayers > 0))

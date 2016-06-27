@@ -18,7 +18,7 @@ function GameController()
 
 GameController.prototype.start = function()
 {
-    this.playerName = this.getPlayerName();
+    this.playerName = this.gameInterface.getPlayerName();
 
     if ((this.playerName.length > 0) && (this.playerName.length <= 12))
     {
@@ -60,8 +60,9 @@ GameController.prototype.handlerOnEnd = function()
 
     this.game.handlerOnEnd = function()
     {
-        thisPtr.processElementsOnEnd();
         thisPtr.insertData();
+        thisPtr.processElementsOnEnd();
+        thisPtr.getData();
         thisPtr.getData();
     };
 };
@@ -101,11 +102,6 @@ GameController.prototype.handlerOnTopPlayerButtons = function()
     });
 };
 
-GameController.prototype.getPlayerName = function()
-{
-    return this.gameInterface.areaForName.val();
-};
-
 GameController.prototype.insertData = function()
 {
     var sendingData = {
@@ -121,7 +117,6 @@ GameController.prototype.insertData = function()
     $.ajax({
         url: '/arkanoid/php/insert.php',
         type: 'POST',
-        cache: false,
         data: sendingData,
         error: showError
     });
@@ -141,7 +136,6 @@ GameController.prototype.getData = function()
 
     $.ajax({
         url: '/arkanoid/php/select.php',
-        cache: false,
         success: changeTopPlayersElement,
         error: showError
     });

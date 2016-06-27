@@ -6,7 +6,7 @@ function Game(canvas, ctx)
     this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight);
 
     this.platform = new Platform(this.fieldWidth, this.fieldHeight);
-    this.ball = new Ball();
+    this.ball = new Ball(5);
     this.grid = new Grid(this.fieldWidth, this.fieldHeight);
 
     this.handlerOnMouseMove();
@@ -90,7 +90,6 @@ Game.prototype.collisions = function()
                 this.ball.yVect = - this.ball.yVect;
             }
             this.grid.destroy(identifier);
-            this.getBonuses(enemy);
             this.score++;
         }
     }
@@ -121,28 +120,9 @@ Game.prototype.collisions = function()
     }
 };
 
-Game.prototype.getBonuses = function(enemy)
-{
-    var thisPtr = this;
-
-    if (enemy.type == 1)
-    {
-        this.ball.yVect += 0.5;
-        this.platform.width += 5;
-    }
-    else if (enemy.type == 2)
-    {
-        this.platform.width += 5;;
-    }
-    else if (enemy.type == 3)
-    {
-        this.platform.width -= 20;
-    }
-};
-
 Game.prototype.drawPlatform = function()
 {
-    this.graphics.drawRectWithBorder(this.platform.x, this.platform.y, this.platform.width, this.platform.height, this.platform.fillColor, this.platform.strokeColor);
+    this.graphics.drawRectWithBorderAndGradient(this.platform.x, this.platform.y, this.platform.width, this.platform.height, this.platform.fillColor, this.platform.strokeColor);
 };
 
 Game.prototype.drawBall = function()
@@ -154,7 +134,7 @@ Game.prototype.drawGrid = function()
 {
     for (var enemy in this.grid.nodes)
     {
-        this.graphics.drawRectWithBorder(this.grid.nodes[enemy].x, this.grid.nodes[enemy].y, this.grid.nodes[enemy].width, this.grid.nodes[enemy].height, this.grid.nodes[enemy].fillColor, this.grid.nodes[enemy].strokeColor);
+        this.graphics.drawRectWithBorderAndGradient(this.grid.nodes[enemy].x, this.grid.nodes[enemy].y, this.grid.nodes[enemy].width, this.grid.nodes[enemy].height, this.grid.nodes[enemy].fillColor, this.grid.nodes[enemy].strokeColor);
     }
 };
 
@@ -179,6 +159,7 @@ Game.prototype.showName = function()
 Game.prototype.handlerOnMouseMove = function()
 {
     var thisPtr = this;
+
     document.getElementById('mouseVisibilityField').addEventListener('mousemove', function(event) {
         var x = event.offsetX;
         thisPtr.platform.changeCoordinate(x);

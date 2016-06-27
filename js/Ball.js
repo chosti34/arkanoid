@@ -1,6 +1,9 @@
-function Ball()
+function Ball(radius)
 {
-    this.radius = 5;
+    this.radius = radius;
+
+    this.speedX = 0;
+    this.speedY = -7;
 }
 
 Ball.prototype.initialize = function(x, y, fillColor, strokeColor)
@@ -10,8 +13,8 @@ Ball.prototype.initialize = function(x, y, fillColor, strokeColor)
     this.fillColor = fillColor;
     this.strokeColor = strokeColor;
 
-    this.xVect = 0;
-    this.yVect = -7;
+    this.xVect = this.speedX;
+    this.yVect = this.speedY;
 };
 
 Ball.prototype.move = function()

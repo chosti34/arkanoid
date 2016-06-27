@@ -1,4 +1,3 @@
-USE arkanoid;
 CREATE TABLE IF NOT EXISTS `players` (
   `name` VARCHAR(255) NOT NULL,
   `score` INT(60) NOT NULL

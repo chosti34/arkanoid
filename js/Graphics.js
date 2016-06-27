@@ -33,14 +33,11 @@ Graphics.prototype.drawCircleWithBorder = function(x, y, radius, fillColor, stro
     this.ctx.stroke();
 };
 
-Graphics.prototype.drawRectWithBorder = function(x, y, width, height, fillColor, strokeColor)
+Graphics.prototype.drawRectWithBorderAndGradient = function(x, y, width, height, fillColor, strokeColor)
 {
-    var grad = this.ctx.createLinearGradient(x, y, x + 50, y + 200);
+    this.addGradient(x, y, x + 50, y + 200, fillColor, strokeColor);
 
-    grad.addColorStop(0, fillColor);
-    grad.addColorStop(1, strokeColor);
-
-    this.ctx.fillStyle = grad;
+    this.ctx.fillStyle = this.grad;
     this.ctx.strokeStyle = strokeColor;
 
     this.ctx.beginPath();
@@ -48,6 +45,14 @@ Graphics.prototype.drawRectWithBorder = function(x, y, width, height, fillColor,
     this.ctx.closePath();
     this.ctx.fill();
     this.ctx.stroke();
+};
+
+Graphics.prototype.addGradient = function(x1, y1, x2, y2, color1, color2)
+{
+    this.grad = this.ctx.createLinearGradient(x1, y1, x2, y2);
+
+    this.grad.addColorStop(0, color1);
+    this.grad.addColorStop(1, color2);
 };
 
 Graphics.prototype.printString = function(str, font, fillStyleOfStr, x, y)
