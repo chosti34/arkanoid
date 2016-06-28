@@ -50,7 +50,14 @@ GameController.prototype.processElementsOnStart = function()
 GameController.prototype.processElementsOnEnd = function()
 {
     this.gameInterface.showAllOnEnd();
-    this.gameInterface.showGameOver(this.playerName, this.game.score);
+    if (this.game.isWin)
+    {
+        this.gameInterface.showYouWin(this.playerName, this.game.score);
+    }
+    else
+    {
+        this.gameInterface.showGameOver(this.playerName, this.game.score);
+    }
     this.gameInterface.backgroundImage.css('opacity', '0.5');
 };
 

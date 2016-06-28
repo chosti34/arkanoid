@@ -3,12 +3,12 @@ function GameInterface()
     this.areaForName = $('#areaForName');
     this.startButton = $('#startButton');
     this.showTopButton = $('#showTopButton');
-    this.hideTopButton = $('#hideButton');
+    this.hideTopButton = $('#hideTopButton');
     this.renameButton = $('#renameButton');
     this.gameOverMessage = $('#gameOverMessage');
     this.endScoreMessage = $('#endScoreMessage');
-    this.topPlayersBlock = $('#windowPopup');
-    this.allElements = $('#pageElements');
+    this.topPlayersBlock = $('#topPlayersBlock');
+    this.allElements = $('#gameElements');
     this.backgroundImage = $('#canvasContainer');
 }
 
@@ -42,6 +42,14 @@ GameInterface.prototype.processOnRename = function()
 GameInterface.prototype.showGameOver = function(name, score)
 {
     this.gameOverMessage.html('Game Over, ' + name + '!');
+    this.endScoreMessage.html('Score: ' + score);
+    this.gameOverMessage.show();
+    this.endScoreMessage.show();
+};
+
+GameInterface.prototype.showYouWin = function(name, score)
+{
+    this.gameOverMessage.html('You Win, ' + name + '!');
     this.endScoreMessage.html('Score: ' + score);
     this.gameOverMessage.show();
     this.endScoreMessage.show();

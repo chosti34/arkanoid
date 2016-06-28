@@ -97,7 +97,7 @@ body
     top: 80px;
 }
 
-.popup
+.top_players_block
 {
     display: none;
     width: 100%;
@@ -107,7 +107,7 @@ body
     top: 0;
 }
 
-.popup .popup_content
+.top_players_block_content
 {
     width: 200px;
     height: 365px;
@@ -119,10 +119,10 @@ body
     padding: 10px;
 }
 
-.header_popup
+.top_players_block_header
 {
-    text-align: center;
     display: inherit;
+    text-align: center;
 }
 
 .top_players_paragraph
@@ -132,7 +132,7 @@ body
     margin: 20px auto 0;
 }
 
-.hide_button
+.hide_top_button
 {
     display: inherit;
     width: 60px;
@@ -141,7 +141,7 @@ body
     margin: 20px auto;
 }
 
-.hide_button:hover
+.hide_top_button:hover
 {
     color: #fff;
 }
