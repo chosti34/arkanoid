@@ -22,7 +22,7 @@ Game.prototype.initialize = function(playerName)
 
     this.platform.initialize(this.fieldWidth / 2 - this.platform.width / 2, this.fieldHeight - 30, '#1e90ff', 'blue');
     this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 5, '#00bfff', 'blue');
-    this.grid.initialize(60, 70, 20, '#1ca9c9', 'blue');
+    this.grid.initialize(66, 70, 20, '#1ca9c9', 'blue');
 
     this.gameLoop();
 };
@@ -62,26 +62,24 @@ Game.prototype.end = function()
     this.graphics.clearAll();
 };
 
-Game.prototype.isCollised = function(x1, y1, w1, h1, x2, y2, w2, h2)
+Game.prototype.collisionBetweenBallAndRect = function(ball, rect)
 {
-    return (x1 < x2 + w2) && (x1 + w1 > x2) && (y1 < y2 + h2) && (h1 + y1 > y2);
+    var ballTop = this.ball.y - this.ball.radius;
+    var ballLeft = this.ball.x - this.ball.radius;
+    var ballDiametr = 2 * this.ball.radius;
+
+    return ((ballLeft < rect.x + rect.width) && (ballLeft + ballDiametr > rect.x) && (ballTop < rect.y + rect.height) && (ballDiametr + ballTop > rect.y));
 };
 
 Game.prototype.collisions = function()
 {
-    var ballTop = this.ball.y - this.ball.radius;
-    var ballRight = this.ball.x + this.ball.radius;
-    var ballLeft = this.ball.x - this.ball.radius;
-    var ballBottom = this.ball.y + this.ball.radius;
-    var ballDiametr = 2 * this.ball.radius;
-
     for (var identifier in this.grid.nodes)
     {
         var enemy = this.grid.nodes[identifier];
-        if (this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, enemy.width, enemy.height))
+
+        if (this.collisionBetweenBallAndRect(this.ball, enemy))
         {
-            if (this.ball.xVect >= 0 && this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x, enemy.y, 0, enemy.height) ||
-                this.ball.xVect <= 0 && this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, enemy.x + enemy.width, enemy.y, 0, enemy.height))
+            if (((this.ball.xVect > 0) && (this.ball.x < enemy.x)) || ((this.ball.xVect <= 0) && (this.ball.x > enemy.x + enemy.width)))
             {
                 this.ball.xVect = - this.ball.xVect;
             }
@@ -93,28 +91,30 @@ Game.prototype.collisions = function()
             this.score++;
         }
     }
+
     if (this.grid.nodes.length == 0)
     {
         this.isContinue = false;
         this.isWin = true;
     }
 
-    if ((ballRight >= this.fieldWidth) || (ballLeft <= 0))
+    if ((this.ball.x + this.ball.radius >= this.fieldWidth) || (this.ball.x - this.ball.radius <= 0))
     {
         this.ball.xVect = - this.ball.xVect;
     }
 
-    if (ballTop <= 0)
+    if (this.ball.y - this.ball.radius <= 0)
     {
         this.ball.yVect = - this.ball.yVect;
     }
 
-    if (this.isCollised(ballLeft, ballTop, ballDiametr, ballDiametr, this.platform.x, this.platform.y, this.platform.width, this.platform.height))
+    if (this.collisionBetweenBallAndRect(this.ball, this.platform))
     {
         this.ball.yVect = - this.ball.yVect;
         this.ball.xVect = 10 * (this.ball.x - (this.platform.x + this.platform.width / 2)) / this.platform.width;
     }
-    else if (ballBottom >= this.fieldHeight)
+
+    if (this.ball.y + this.ball.radius >= this.fieldHeight)
     {
         this.isContinue = false;
     }
@@ -161,7 +161,7 @@ Game.prototype.handlerOnMouseMove = function()
     var thisPtr = this;
 
     document.getElementById('mouseVisibilityField').addEventListener('mousemove', function(event) {
-        var x = event.offsetX;
-        thisPtr.platform.changeCoordinate(x);
+        var currentCoordinateOnX = event.offsetX;
+        thisPtr.platform.changeCoordinate(currentCoordinateOnX);
     });
 };
