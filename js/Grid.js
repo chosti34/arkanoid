@@ -8,9 +8,7 @@ function Grid(fieldWidth, fieldHeight)
 
 Grid.prototype.add = function(x, y, width, height, fillColor, strokeColor)
 {
-    var typeOfBrick = Math.floor(Math.random() * 3) + 1;
-    var temp = new Brick(x, y, width, height, fillColor, strokeColor, typeOfBrick);
-
+    var temp = new Brick(x, y, width, height, fillColor, strokeColor);
     this.nodes.push(temp);
 };
 

@@ -1,7 +1,6 @@
-function Ball(radius)
+function Ball()
 {
-    this.radius = radius;
-
+    this.radius = 5;
     this.speedX = 0;
     this.speedY = -7;
 }

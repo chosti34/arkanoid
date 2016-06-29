@@ -11,9 +11,7 @@ function GameController()
     this.handlerOnTopPlayerButtons();
     this.handlerOnEnd();
 
-    this.processElementsOnload();
-
-    this.getData();
+    this.processElementsOnPageLoad();
 }
 
 GameController.prototype.start = function()
@@ -35,10 +33,10 @@ GameController.prototype.start = function()
     }
 };
 
-GameController.prototype.processElementsOnload = function()
+GameController.prototype.processElementsOnPageLoad = function()
 {
-    this.gameInterface.hideOnload();
-    this.gameInterface.popUpHide();
+    this.gameInterface.hideOnPageLoad();
+    this.gameInterface.hideTopPlayersBlock();
 };
 
 GameController.prototype.processElementsOnStart = function()
@@ -67,10 +65,8 @@ GameController.prototype.handlerOnEnd = function()
 
     this.game.handlerOnEnd = function()
     {
-        thisPtr.insertData();
+        thisPtr.insertDataIntoDataBase();
         thisPtr.processElementsOnEnd();
-        thisPtr.getData();
-        thisPtr.getData();
     };
 };
 
@@ -80,7 +76,7 @@ GameController.prototype.handlerOnStartButton = function()
 
     this.gameInterface.startButton.bind('click', function()
     {
-        thisPtr.gameInterface.startButton.bind = thisPtr.start();
+        thisPtr.start();
     });
 };
 
@@ -100,16 +96,17 @@ GameController.prototype.handlerOnTopPlayerButtons = function()
 
     this.gameInterface.showTopButton.bind('click', function()
     {
-        thisPtr.gameInterface.popUpShow();
+        thisPtr.getDataFromDataBase();
+        thisPtr.gameInterface.showTopPlayersBlock();
     });
 
     this.gameInterface.hideTopButton.bind('click', function()
     {
-        thisPtr.gameInterface.popUpHide();
+        thisPtr.gameInterface.hideTopPlayersBlock();
     });
 };
 
-GameController.prototype.insertData = function()
+GameController.prototype.insertDataIntoDataBase = function()
 {
     var sendingData = {
         user: this.playerName,
@@ -129,7 +126,7 @@ GameController.prototype.insertData = function()
     });
 };
 
-GameController.prototype.getData = function()
+GameController.prototype.getDataFromDataBase = function()
 {
     var showError = function()
     {

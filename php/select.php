@@ -11,7 +11,7 @@
         $i = 1;
         while ($row = mysqli_fetch_assoc($result))
         {
-            echo $i . '. ' . $row['name'] . ', ' . $row['max_score'] . '<br />';
+            echo $i . '. ' . htmlspecialchars($row['name']) . ', ' . htmlspecialchars($row['max_score']) . '<br />';
             $i++;
         }
         mysqli_free_result($result);

@@ -8,18 +8,18 @@ function GameInterface()
     this.gameOverMessage = $('#gameOverMessage');
     this.endScoreMessage = $('#endScoreMessage');
     this.topPlayersBlock = $('#topPlayersBlock');
-    this.allElements = $('#gameElements');
+    this.allGameElements = $('#gameElements');
     this.backgroundImage = $('#canvasContainer');
 }
 
 GameInterface.prototype.hideAllOnStart = function()
 {
-    this.allElements.hide();
+    this.allGameElements.hide();
 };
 
 GameInterface.prototype.showAllOnEnd = function()
 {
-    this.allElements.show();
+    this.allGameElements.show();
 
     this.renameButton.show();
     this.areaForName.hide();
@@ -41,31 +41,35 @@ GameInterface.prototype.processOnRename = function()
 
 GameInterface.prototype.showGameOver = function(name, score)
 {
-    this.gameOverMessage.html('Game Over, ' + name + '!');
-    this.endScoreMessage.html('Score: ' + score);
-    this.gameOverMessage.show();
-    this.endScoreMessage.show();
+    this.gameOverMessage.html('Game Over, ' + this.escapeHtmlTags(name) + '!');
+    this.endScoreMessage.html('Score: ' + this.escapeHtmlTags(score));
+    this.showEndingMessages();
 };
 
 GameInterface.prototype.showYouWin = function(name, score)
 {
-    this.gameOverMessage.html('You Win, ' + name + '!');
-    this.endScoreMessage.html('Score: ' + score);
+    this.gameOverMessage.html('You Win, ' + this.escapeHtmlTags(name) + '!');
+    this.endScoreMessage.html('Score: ' + this.escapeHtmlTags(score));
+    this.showEndingMessages();
+};
+
+GameInterface.prototype.showEndingMessages = function()
+{
     this.gameOverMessage.show();
     this.endScoreMessage.show();
 };
 
-GameInterface.prototype.hideOnload = function()
+GameInterface.prototype.hideOnPageLoad = function()
 {
     this.renameButton.hide();
 };
 
-GameInterface.prototype.popUpShow = function()
+GameInterface.prototype.showTopPlayersBlock = function()
 {
     this.topPlayersBlock.show();
 };
 
-GameInterface.prototype.popUpHide = function()
+GameInterface.prototype.hideTopPlayersBlock = function()
 {
     this.topPlayersBlock.hide();
 };
@@ -73,4 +77,14 @@ GameInterface.prototype.popUpHide = function()
 GameInterface.prototype.getPlayerName = function()
 {
     return this.areaForName.val();
+};
+
+GameInterface.prototype.escapeHtmlTags = function(str)
+{
+    return str.toString()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 };

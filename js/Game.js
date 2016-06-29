@@ -6,18 +6,18 @@ function Game(canvas, ctx)
     this.graphics = new Graphics(ctx, this.fieldWidth, this.fieldHeight);
 
     this.platform = new Platform(this.fieldWidth, this.fieldHeight);
-    this.ball = new Ball(5);
     this.grid = new Grid(this.fieldWidth, this.fieldHeight);
+    this.ball = new Ball();
 
     this.handlerOnMouseMove();
-    this.handlerOnEnd = function() {};
 }
 
 Game.prototype.initialize = function(playerName)
 {
+    this.score = 0;
     this.isWin = false;
     this.isContinue = true;
-    this.score = 0;
+
     this.playerName = playerName;
 
     this.platform.initialize(this.fieldWidth / 2 - this.platform.width / 2, this.fieldHeight - 30, '#1e90ff', 'blue');
@@ -141,7 +141,7 @@ Game.prototype.drawGrid = function()
 Game.prototype.showScore = function()
 {
     var stringToPrint = 'Score: ' + this.score;
-    var fontOfString = '42px Times New Roman';
+    var fontOfString = '42px Monospace';
     var fillStyleOfString = '#531a0f';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
@@ -150,7 +150,7 @@ Game.prototype.showScore = function()
 Game.prototype.showName = function()
 {
     var stringToPrint = 'Player: ' + this.playerName;
-    var fontOfString = '30px Times New Roman';
+    var fontOfString = '30px Monospace';
     var fillStyleOfString = '#531a0f';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
