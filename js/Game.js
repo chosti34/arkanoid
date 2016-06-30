@@ -98,6 +98,12 @@ Game.prototype.collisions = function()
         this.isWin = true;
     }
 
+    if (this.collisionBetweenBallAndRect(this.ball, this.platform))
+    {
+        this.ball.yVect = - this.ball.yVect;
+        this.ball.xVect = 10 * (this.ball.x - (this.platform.x + this.platform.width / 2)) / this.platform.width;
+    }
+
     if ((this.ball.x + this.ball.radius >= this.fieldWidth) || (this.ball.x - this.ball.radius <= 0))
     {
         this.ball.xVect = - this.ball.xVect;
@@ -106,12 +112,6 @@ Game.prototype.collisions = function()
     if (this.ball.y - this.ball.radius <= 0)
     {
         this.ball.yVect = - this.ball.yVect;
-    }
-
-    if (this.collisionBetweenBallAndRect(this.ball, this.platform))
-    {
-        this.ball.yVect = - this.ball.yVect;
-        this.ball.xVect = 10 * (this.ball.x - (this.platform.x + this.platform.width / 2)) / this.platform.width;
     }
 
     if (this.ball.y + this.ball.radius >= this.fieldHeight)
