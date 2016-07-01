@@ -10,7 +10,7 @@
         $error = mysqli_connect_error();
         if ($error)
         {
-            die('Unable to connect to DB');
+            die('Unable to connect to database');
         }
     }
 
