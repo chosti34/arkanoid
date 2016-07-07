@@ -119,7 +119,7 @@ GameController.prototype.insertDataIntoDataBase = function()
     };
 
     $.ajax({
-        url: '/arkanoid/php/insert.php',
+        url: '/arkanoid/php/insert_player_info.php',
         type: 'POST',
         data: sendingData,
         error: showError
@@ -141,7 +141,7 @@ GameController.prototype.getDataFromDataBase = function()
     };
 
     $.ajax({
-        url: '/arkanoid/php/select.php',
+        url: '/arkanoid/php/select_player_info.php',
         success: changeTopPlayersElement,
         error: showError
     });
