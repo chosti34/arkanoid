@@ -3,7 +3,7 @@
 
     dbConnect();
 
-    $query = "SELECT name, MAX(score) as max_score FROM players GROUP BY name ORDER BY max_score DESC LIMIT 12";
+    $query = "SELECT name, MAX(score) as max_score FROM player GROUP BY name ORDER BY max_score DESC LIMIT 12";
     $result = dbQuery($query);
 
     if ($result)

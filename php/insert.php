@@ -6,6 +6,6 @@
     $name = dbQuote(trim($_POST['user']));
     $score = dbQuote(trim($_POST['score']));
 
-    $query = "INSERT INTO players(name, score) VALUES('$name', $score)";
+    $query = "INSERT INTO player(name, score) VALUES('$name', $score)";
 
     dbQuery($query);
