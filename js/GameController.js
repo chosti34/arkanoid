@@ -96,7 +96,7 @@ GameController.prototype.setHandlerOnTopPlayerButtons = function()
 
     this.gameInterface.showTopButton.bind('click', function()
     {
-        thisPtr.getDataFromDataBase();
+        thisPtr.changeElementWithDataFromDataBase();
         thisPtr.gameInterface.showTopPlayersBlock();
     });
 
@@ -126,7 +126,7 @@ GameController.prototype.insertDataIntoDataBase = function()
     });
 };
 
-GameController.prototype.getDataFromDataBase = function()
+GameController.prototype.changeElementWithDataFromDataBase = function()
 {
     var thisPtr = this;
 
