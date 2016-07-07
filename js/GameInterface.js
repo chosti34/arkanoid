@@ -8,6 +8,7 @@ function GameInterface()
     this.gameOverMessage = $('#gameOverMessage');
     this.endScoreMessage = $('#endScoreMessage');
     this.topPlayersBlock = $('#topPlayersBlock');
+    this.topPlayersParagraph = $('#topPlayersParagraph');
     this.allGameElements = $('#gameElements');
     this.backgroundImage = $('#canvasContainer');
 }

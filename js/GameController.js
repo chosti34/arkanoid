@@ -128,6 +128,8 @@ GameController.prototype.insertDataIntoDataBase = function()
 
 GameController.prototype.getDataFromDataBase = function()
 {
+    var thisPtr = this;
+
     var showError = function()
     {
         alert('An error occurred while receiving data');
@@ -135,7 +137,7 @@ GameController.prototype.getDataFromDataBase = function()
 
     var changeTopPlayersElement = function(data)
     {
-        $('#topPlayersParagraph').html(data);
+        thisPtr.gameInterface.topPlayersParagraph.html(data);
     };
 
     $.ajax({
