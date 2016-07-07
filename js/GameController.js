@@ -6,10 +6,10 @@ function GameController()
     this.game = new Game(canvas, ctx);
     this.gameInterface = new GameInterface();
 
-    this.handlerOnStartButton();
-    this.handlerOnRenameButton();
-    this.handlerOnTopPlayerButtons();
-    this.handlerOnEnd();
+    this.setHandlerOnStartButton();
+    this.setHandlerOnRenameButton();
+    this.setHandlerOnTopPlayerButtons();
+    this.setHandlerOnGameEnd();
 
     this.processElementsOnPageLoad();
 }
@@ -59,7 +59,7 @@ GameController.prototype.processElementsOnEnd = function()
     this.gameInterface.backgroundImage.css('opacity', '0.5');
 };
 
-GameController.prototype.handlerOnEnd = function()
+GameController.prototype.setHandlerOnGameEnd = function()
 {
     var thisPtr = this;
 
@@ -70,7 +70,7 @@ GameController.prototype.handlerOnEnd = function()
     };
 };
 
-GameController.prototype.handlerOnStartButton = function()
+GameController.prototype.setHandlerOnStartButton = function()
 {
     var thisPtr = this;
 
@@ -80,7 +80,7 @@ GameController.prototype.handlerOnStartButton = function()
     });
 };
 
-GameController.prototype.handlerOnRenameButton = function()
+GameController.prototype.setHandlerOnRenameButton = function()
 {
     var thisPtr = this;
 
@@ -90,7 +90,7 @@ GameController.prototype.handlerOnRenameButton = function()
     });
 };
 
-GameController.prototype.handlerOnTopPlayerButtons = function()
+GameController.prototype.setHandlerOnTopPlayerButtons = function()
 {
     var thisPtr = this;
 
