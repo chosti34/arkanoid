@@ -77,7 +77,12 @@ body
     border: 1px solid #00f;
 }
 
-.ending_messages
+.input_for_dirs
+{
+    display: none;
+}
+
+.ending_message
 {
     width: 500px;
     font-size: 36px;

@@ -13,13 +13,15 @@
           <canvas id="canvas" class="canvas" width="890" height="495"></canvas>
         </div>
         <div id="gameElements">
-          <span id="gameOverMessage" class="game_over_message ending_messages"></span>
-          <span id="endScoreMessage" class="end_score_message ending_messages"></span>
+          <span id="gameOverMessage" class="game_over_message ending_message"></span>
+          <span id="endScoreMessage" class="end_score_message ending_message"></span>
           <div class="game_menu">
             <input id="renameButton" class="main_buttons game_menu_element" type="button" value="Change name" />
             <input id="areaForName" class="area_for_name game_menu_element" type="text" placeholder="Name" maxlength="12" />
             <input id="startButton" class="main_buttons game_menu_element" type="button" value="Play" />
             <input id="showTopButton" class="main_buttons game_menu_element" type="button" value="Top" />
+            <input id="insertInfo" class="input_for_dirs" type="button" value="/arkanoid/php/insert_player_info.php" />
+            <input id="selectInfo" class="input_for_dirs" type="button" value="/arkanoid/php/select_player_info.php" />
           </div>
         </div>
       </div>

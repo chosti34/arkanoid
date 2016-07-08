@@ -11,6 +11,9 @@ function GameInterface()
     this.topPlayersParagraph = $('#topPlayersParagraph');
     this.allGameElements = $('#gameElements');
     this.backgroundImage = $('#canvasContainer');
+
+    this.insertInformationFileDirectory = $('#insertInfo').val();
+    this.selectInformationFileDirectory = $('#selectInfo').val();
 }
 
 GameInterface.prototype.hideAllOnStart = function()
@@ -42,15 +45,15 @@ GameInterface.prototype.processOnRename = function()
 
 GameInterface.prototype.showGameOver = function(name, score)
 {
-    this.gameOverMessage.html('Game Over, ' + this.escapeHtmlTags(name) + '!');
-    this.endScoreMessage.html('Score: ' + this.escapeHtmlTags(score));
+    this.gameOverMessage.text('Game Over, ' + name + '!');
+    this.endScoreMessage.text('Score: ' + score);
     this.showEndingMessages();
 };
 
 GameInterface.prototype.showYouWin = function(name, score)
 {
-    this.gameOverMessage.html('You Win, ' + this.escapeHtmlTags(name) + '!');
-    this.endScoreMessage.html('Score: ' + this.escapeHtmlTags(score));
+    this.gameOverMessage.text('You Win, ' + name + '!');
+    this.endScoreMessage.text('Score: ' + score);
     this.showEndingMessages();
 };
 
@@ -78,14 +81,4 @@ GameInterface.prototype.hideTopPlayersBlock = function()
 GameInterface.prototype.getPlayerName = function()
 {
     return this.areaForName.val();
-};
-
-GameInterface.prototype.escapeHtmlTags = function(str)
-{
-    return str.toString()
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
 };
