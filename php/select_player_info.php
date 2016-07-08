@@ -11,7 +11,9 @@
     {
         for ($i = 1; $row = mysqli_fetch_assoc($result); $i++)
         {
-            $str .= formStringOfTopPlayer($i, $row['name'], $row['max_score']);
+            $name = htmlspecialchars(stripslashes($row['name']));
+            $score = htmlspecialchars(stripslashes($row['max_score']));
+            $str .= $i . '. ' . $name . ', ' . $score . '<br />'; 
         }
         mysqli_free_result($result);
     }
