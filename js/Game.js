@@ -141,7 +141,7 @@ Game.prototype.drawGrid = function()
 Game.prototype.showScore = function()
 {
     var stringToPrint = 'Score: ' + this.score;
-    var fontOfString = '42px Monospace';
+    var fontOfString = '42px Consolas, Monospace';
     var fillStyleOfString = '#531a0f';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
@@ -150,7 +150,7 @@ Game.prototype.showScore = function()
 Game.prototype.showName = function()
 {
     var stringToPrint = 'Player: ' + this.playerName;
-    var fontOfString = '30px Monospace';
+    var fontOfString = '30px Consolas, Monospace';
     var fillStyleOfString = '#531a0f';
 
     this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
