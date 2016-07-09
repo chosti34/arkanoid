@@ -5,12 +5,16 @@ function GameInterface()
     this.showTopButton = $('#showTopButton');
     this.hideTopButton = $('#hideTopButton');
     this.renameButton = $('#renameButton');
-    this.gameOverMessage = $('#gameOverMessage');
-    this.endScoreMessage = $('#endScoreMessage');
     this.topPlayersBlock = $('#topPlayersBlock');
     this.topPlayersParagraph = $('#topPlayersParagraph');
     this.allGameElements = $('#gameElements');
     this.backgroundImage = $('#canvasContainer');
+
+    this.startAlertMessage = $('#startAlertMessage');
+    this.gameOverMessage = $('#gameOverMessage');
+    this.endScoreMessage = $('#endScoreMessage');
+    this.playerNameSpan = $('#playerNameSpan');
+    this.scoreSpan = $('#scoreSpan');
 
     this.insertInformationFileDirectory = $('#insertInfo').val();
     this.selectInformationFileDirectory = $('#selectInfo').val();
@@ -19,11 +23,18 @@ function GameInterface()
 GameInterface.prototype.hideAllOnStart = function()
 {
     this.allGameElements.hide();
+    this.startAlertMessage.hide();
+
+    this.playerNameSpan.show();
+    this.scoreSpan.show();
 };
 
 GameInterface.prototype.showAllOnEnd = function()
 {
     this.allGameElements.show();
+
+    this.playerNameSpan.hide();
+    this.scoreSpan.hide();
 
     this.renameButton.show();
     this.areaForName.hide();
@@ -38,6 +49,7 @@ GameInterface.prototype.processOnRename = function()
     this.endScoreMessage.hide();
 
     this.areaForName.show();
+    this.startAlertMessage.show();
 
     this.startButton.val('Play')
     this.areaForName.val('');
@@ -63,9 +75,17 @@ GameInterface.prototype.showEndingMessages = function()
     this.endScoreMessage.show();
 };
 
+GameInterface.prototype.hideEndingMessages = function()
+{
+    this.gameOverMessage.hide();
+    this.endScoreMessage.hide();
+};
+
 GameInterface.prototype.hideOnPageLoad = function()
 {
     this.renameButton.hide();
+    this.playerNameSpan.hide();
+    this.scoreSpan.hide();
 };
 
 GameInterface.prototype.showTopPlayersBlock = function()
@@ -81,4 +101,14 @@ GameInterface.prototype.hideTopPlayersBlock = function()
 GameInterface.prototype.getPlayerName = function()
 {
     return this.areaForName.val();
+};
+
+GameInterface.prototype.changePlayerNameSpan = function(playerName)
+{
+    this.playerNameSpan.text('Player: ' + playerName);
+};
+
+GameInterface.prototype.changePlayerScoreSpan = function(score)
+{
+    this.scoreSpan.text('Score: ' + score);
 };

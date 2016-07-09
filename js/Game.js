@@ -9,7 +9,7 @@ function Game(canvas, ctx)
     this.grid = new Grid(this.fieldWidth, this.fieldHeight);
     this.ball = new Ball();
 
-    this.handlerOnMouseMove();
+    this.setHandlerOnMouseMove();
 }
 
 Game.prototype.initialize = function(playerName)
@@ -34,8 +34,8 @@ Game.prototype.gameLoop = function()
     if (this.isContinue)
     {
         this.graphics.clearAll();
-        this.showScore();
-        this.showName();
+        this.showPlayerScore();
+        this.showPlayerName();
 
         this.collisions();
         this.ball.move();
@@ -138,25 +138,7 @@ Game.prototype.drawGrid = function()
     }
 };
 
-Game.prototype.showScore = function()
-{
-    var stringToPrint = 'Score: ' + this.score;
-    var fontOfString = '42px Consolas, Monospace';
-    var fillStyleOfString = '#531a0f';
-
-    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2);
-};
-
-Game.prototype.showName = function()
-{
-    var stringToPrint = 'Player: ' + this.playerName;
-    var fontOfString = '30px Consolas, Monospace';
-    var fillStyleOfString = '#531a0f';
-
-    this.graphics.printString(stringToPrint, fontOfString, fillStyleOfString, 40, this.fieldHeight / 2 + 30);
-};
-
-Game.prototype.handlerOnMouseMove = function()
+Game.prototype.setHandlerOnMouseMove = function()
 {
     var thisPtr = this;
 

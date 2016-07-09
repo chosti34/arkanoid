@@ -9,6 +9,7 @@ function GameController()
     this.setHandlerOnStartButton();
     this.setHandlerOnRenameButton();
     this.setHandlerOnTopPlayerButtons();
+    this.setHandlerOnPageLoad();
     this.setHandlerOnGameEnd();
 
     this.processElementsOnPageLoad();
@@ -59,6 +60,21 @@ GameController.prototype.processElementsOnEnd = function()
     this.gameInterface.backgroundImage.css('opacity', '0.5');
 };
 
+GameController.prototype.setHandlerOnPageLoad = function()
+{
+    var thisPtr = this;
+
+    this.game.showPlayerName = function()
+    {
+        thisPtr.gameInterface.changePlayerNameSpan(thisPtr.playerName);
+    };
+
+    this.game.showPlayerScore = function()
+    {
+        thisPtr.gameInterface.changePlayerScoreSpan(thisPtr.game.score);
+    };
+};
+
 GameController.prototype.setHandlerOnGameEnd = function()
 {
     var thisPtr = this;
@@ -77,6 +93,7 @@ GameController.prototype.setHandlerOnStartButton = function()
     this.gameInterface.startButton.bind('click', function()
     {
         thisPtr.start();
+        thisPtr.gameInterface.hideEndingMessages();
     });
 };
 

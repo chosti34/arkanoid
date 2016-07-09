@@ -8,20 +8,31 @@
   </head>
   <body>
     <div id="mouseVisibilityField" class="mouse_visibility_field">
-      <div class="main_container_with_border">
-        <div id="canvasContainer" class="canvas_container">
-          <canvas id="canvas" class="canvas" width="890" height="495"></canvas>
+      <div class="main_container">
+        <div class="game_info_container">
+          <div class="left">
+            <span id="gameOverMessage" class="top_info_message"></span>
+            <span id="playerNameSpan" class="top_info_message"></span>
+          </div>
+          <div class="right">
+            <span id="endScoreMessage" class="top_info_message"></span>
+            <span id="scoreSpan" class="top_info_message"></span>
+          </div>
+          <span id="startAlertMessage" class="start_alert_message">Arkanoid</span>
         </div>
-        <div id="gameElements">
-          <span id="gameOverMessage" class="game_over_message ending_message"></span>
-          <span id="endScoreMessage" class="end_score_message ending_message"></span>
-          <div class="game_menu">
-            <input id="renameButton" class="main_buttons game_menu_element" type="button" value="Change name" />
-            <input id="areaForName" class="area_for_name game_menu_element" type="text" placeholder="Name" maxlength="12" />
-            <input id="startButton" class="main_buttons game_menu_element" type="button" value="Play" />
-            <input id="showTopButton" class="main_buttons game_menu_element" type="button" value="Top" />
-            <input id="insertInfo" class="input_for_dirs" type="button" value="/arkanoid/php/insert_player_info.php" />
-            <input id="selectInfo" class="input_for_dirs" type="button" value="/arkanoid/php/select_player_info.php" />
+        <div class="game_field_container">
+          <div id="canvasContainer" class="canvas_container">
+            <canvas id="canvas" class="canvas" width="890" height="495"></canvas>
+          </div>
+          <div id="gameElements">
+            <div class="game_menu">
+              <input id="renameButton" class="main_buttons game_menu_element" type="button" value="Change name" />
+              <input id="areaForName" class="area_for_name game_menu_element" type="text" placeholder="Name" maxlength="12" />
+              <input id="startButton" class="main_buttons game_menu_element" type="button" value="Play" />
+              <input id="showTopButton" class="main_buttons game_menu_element" type="button" value="Top" />
+              <input id="insertInfo" class="file_directory" value="/arkanoid/php/insert_player_info.php" />
+              <input id="selectInfo" class="file_directory" value="/arkanoid/php/select_player_info.php" />
+            </div>
           </div>
         </div>
       </div>
