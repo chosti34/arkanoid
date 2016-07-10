@@ -113,7 +113,7 @@ GameController.prototype.setHandlerOnTopPlayerButtons = function()
 
     this.gameInterface.showTopButton.bind('click', function()
     {
-        thisPtr.changeElementWithDataFromDataBase();
+        thisPtr.changeTopWithDataFromDataBase();
         thisPtr.gameInterface.showTopPlayersBlock();
     });
 
@@ -143,7 +143,7 @@ GameController.prototype.insertDataIntoDataBase = function()
     });
 };
 
-GameController.prototype.changeElementWithDataFromDataBase = function()
+GameController.prototype.changeTopWithDataFromDataBase = function()
 {
     var thisPtr = this;
 
