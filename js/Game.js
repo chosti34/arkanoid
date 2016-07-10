@@ -37,7 +37,7 @@ Game.prototype.gameLoop = function()
         this.showPlayerScore();
         this.showPlayerName();
 
-        this.collisions();
+        this.processCollisions();
         this.ball.move();
         this.platform.controlBorderMove();
 
@@ -64,14 +64,19 @@ Game.prototype.end = function()
 
 Game.prototype.collisionBetweenBallAndRect = function(ball, rect)
 {
-    var ballTop = this.ball.y - this.ball.radius;
-    var ballLeft = this.ball.x - this.ball.radius;
-    var ballDiametr = 2 * this.ball.radius;
+    var ballLeftX = ball.x - ball.radius;
+    var ballRightX = ball.x + ball.radius;
 
-    return ((ballLeft < rect.x + rect.width) && (ballLeft + ballDiametr > rect.x) && (ballTop < rect.y + rect.height) && (ballDiametr + ballTop > rect.y));
+    var ballTopY = ball.y - ball.radius;
+    var ballBottomY = ball.y + ball.radius;
+
+    var rectRightX = rect.x + rect.width;
+    var rectBottomY = rect.y + rect.height;
+
+    return ((ballLeftX < rectRightX) && (ballRightX > rect.x) && (ballTopY < rectBottomY) && (ballBottomY > rect.y));
 };
 
-Game.prototype.collisions = function()
+Game.prototype.processCollisions = function()
 {
     for (var identifier in this.grid.nodes)
     {
@@ -89,6 +94,7 @@ Game.prototype.collisions = function()
             }
             this.grid.destroy(identifier);
             this.score++;
+            break;
         }
     }
 
