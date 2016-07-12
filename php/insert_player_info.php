@@ -1,14 +1,17 @@
 <?php
     require_once 'include/common.inc.php';
 
-    dbConnect();
+    $database = new Database;
 
     if ((isset($_POST['user'])) && (isset($_POST['score'])))
     {
-        $name = dbQuote(trim($_POST['user']));
-        $score = dbQuote(trim($_POST['score']));
+        $name = $database->quote(trim($_POST['user']));
+        $score = $database->quote(trim($_POST['score']));
 
-        $query = "INSERT INTO player(name, score) VALUES('$name', $score)";
+        $query = "INSERT INTO
+                    player(name, score)
+                  VALUES
+                    ('$name', $score)";
 
-        dbQuery($query);
+        $database->query($query);
     }
