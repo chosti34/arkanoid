@@ -9,11 +9,18 @@ function Game(canvas, ctx)
     this.grid = new Grid(this.fieldWidth, this.fieldHeight);
     this.ball = new Ball();
 
+    this.showPlayerScore = function() {};
+    this.handlerOnEnd = function() {};
+
     this.setHandlerOnMouseMove();
 }
 
 Game.prototype.initialize = function(playerName)
 {
+    var amountOfBricks = 66;
+    var brickWidth = 70;
+    var brickHeight = 20;
+
     this.score = 0;
     this.isWin = false;
     this.isContinue = true;
@@ -22,7 +29,7 @@ Game.prototype.initialize = function(playerName)
 
     this.platform.initialize(this.fieldWidth / 2 - this.platform.width / 2, this.fieldHeight - 30, '#1e90ff', 'blue');
     this.ball.initialize(this.platform.x + Math.ceil(this.platform.width / 2), this.platform.y - 5, '#00bfff', 'blue');
-    this.grid.initialize(66, 70, 20, '#1ca9c9', 'blue');
+    this.grid.initialize(amountOfBricks, brickWidth, brickHeight, '#1ca9c9', 'blue');
 
     this.gameLoop();
 };
@@ -79,11 +86,11 @@ Game.prototype.processCollisions = function()
 {
     for (var identifier in this.grid.nodes)
     {
-        var enemy = this.grid.nodes[identifier];
+        var brick = this.grid.nodes[identifier];
 
-        if (this.collisionBetweenBallAndRect(this.ball, enemy))
+        if (this.collisionBetweenBallAndRect(this.ball, brick))
         {
-            if (((this.ball.xVect > 0) && (this.ball.x < enemy.x)) || ((this.ball.xVect <= 0) && (this.ball.x > enemy.x + enemy.width)))
+            if (((this.ball.xVect > 0) && (this.ball.x < brick.x)) || ((this.ball.xVect <= 0) && (this.ball.x > brick.x + brick.width)))
             {
                 this.ball.xVect = - this.ball.xVect;
             }
@@ -137,9 +144,11 @@ Game.prototype.drawBall = function()
 
 Game.prototype.drawGrid = function()
 {
-    for (var enemy in this.grid.nodes)
+    for (var identifier in this.grid.nodes)
     {
-        this.graphics.drawRectWithBorderAndGradient(this.grid.nodes[enemy].x, this.grid.nodes[enemy].y, this.grid.nodes[enemy].width, this.grid.nodes[enemy].height, this.grid.nodes[enemy].fillColor, this.grid.nodes[enemy].strokeColor);
+        var brick = this.grid.nodes[identifier];
+
+        this.graphics.drawRectWithBorderAndGradient(brick.x, brick.y, brick.width, brick.height, brick.fillColor, brick.strokeColor);
     }
 };
 
