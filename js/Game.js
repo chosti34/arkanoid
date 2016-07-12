@@ -35,7 +35,6 @@ Game.prototype.gameLoop = function()
     {
         this.graphics.clearAll();
         this.showPlayerScore();
-        this.showPlayerName();
 
         this.processCollisions();
         this.ball.move();

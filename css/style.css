@@ -4,12 +4,16 @@
     padding: 0;
 }
 
+html, body
+{
+    height: 100%;
+}
+
 body
 {
     background: black;
     font: 14px Consolas, Monospace;
     color: #84a4ff;
-    margin: 0;
 }
 
 .left
@@ -25,7 +29,7 @@ body
 .mouse_visibility_field
 {
     width: 900px;
-    height: 595px;
+    height: 100%;
     margin: 0 auto;
 }
 
@@ -33,7 +37,8 @@ body
 {
     border: 5px solid #84a4ff;
     box-shadow: 0 0 25px #84a4ff;
-    margin-top: 45px;
+    position: relative;
+    top: 45px;
 }
 
 .game_field_container
@@ -110,11 +115,6 @@ body
 {
     background: #1ebfff;
     border: 1px solid #00f;
-}
-
-.file_directory
-{
-    display: none;
 }
 
 .top_players_block

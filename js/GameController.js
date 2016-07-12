@@ -42,13 +42,14 @@ GameController.prototype.processElementsOnPageLoad = function()
 
 GameController.prototype.processElementsOnStart = function()
 {
-    this.gameInterface.hideAllOnStart();
+    this.gameInterface.processAllOnStart();
+    this.gameInterface.changePlayerNameSpan(this.playerName);
     this.gameInterface.backgroundImage.css('opacity', '1');
 };
 
 GameController.prototype.processElementsOnEnd = function()
 {
-    this.gameInterface.showAllOnEnd();
+    this.gameInterface.processAllOnEnd();
     if (this.game.isWin)
     {
         this.gameInterface.showYouWin(this.playerName, this.game.score);
@@ -63,11 +64,6 @@ GameController.prototype.processElementsOnEnd = function()
 GameController.prototype.setHandlerOnPageLoad = function()
 {
     var thisPtr = this;
-
-    this.game.showPlayerName = function()
-    {
-        thisPtr.gameInterface.changePlayerNameSpan(thisPtr.playerName);
-    };
 
     this.game.showPlayerScore = function()
     {
@@ -93,7 +89,6 @@ GameController.prototype.setHandlerOnStartButton = function()
     this.gameInterface.startButton.bind('click', function()
     {
         thisPtr.start();
-        thisPtr.gameInterface.hideEndingMessages();
     });
 };
 
