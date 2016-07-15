@@ -3,14 +3,12 @@
 
     class Database
     {
-        public $dbLink = null;
-
         public function __construct()
         {
-            $this->connect();
+            $this->dbConnect();
         }
 
-        public function connect()
+        public function dbConnect()
         {
             $this->dbLink = @mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
             $error = mysqli_connect_error();
@@ -20,7 +18,7 @@
             }
         }
 
-        public function getArrayOfData($query)
+        public function dbQueryGetDataArray($query)
         {
             $data = array();
             $result = mysqli_query($this->dbLink, $query);
@@ -34,17 +32,17 @@
             }
             else
             {
-                die('Some error with database tables occurred...');
+                die('Some error with database occurred...');
             }
             return $data;
         }
 
-        public function query($query)
+        public function dbQuery($query)
         {
             return mysqli_query($this->dbLink, $query);
         }
 
-        public function quote($value)
+        public function dbQuote($value)
         {
             return mysqli_real_escape_string($this->dbLink, $value);
         }

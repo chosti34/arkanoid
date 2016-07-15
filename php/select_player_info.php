@@ -8,9 +8,10 @@
               GROUP BY name 
               ORDER BY max_score DESC LIMIT 12";
 
-    $data = $database->getArrayOfData($query);
+    $data = $database->dbQueryGetDataArray($query);
 
     $amountOfPlayers = count($data);
+    $str = '';
 
     if ($amountOfPlayers != 0)
     {
