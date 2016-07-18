@@ -1,3 +1,3 @@
 <?php
-    require_once 'database.inc.php';
-    require_once 'auth.inc.php';
+    require_once 'classes/Database.php';
+    require_once 'classes/Auth.php';
