@@ -1,6 +1,8 @@
 <?php
     class Database
     {
+        private $dbLink;
+
         public function __construct()
         {
             $this->dbConnect();
