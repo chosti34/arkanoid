@@ -1,6 +1,4 @@
 <?php
-    require_once '/include/config.inc.php';
-
     class Database
     {
         public function __construct()

@@ -5,7 +5,7 @@
     <title>Авторизация</title>
   </head>
   <body>
-    <form method="post" action="login_process.php">
+    <form method="post" action="/arkanoid/web/login_process.php">
       <label for="loginInput">
         Логин: <input type="text" name="login" id="loginInput" required />
       </label><br/>
